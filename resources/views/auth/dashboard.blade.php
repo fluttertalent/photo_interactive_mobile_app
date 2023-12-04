@@ -35,7 +35,7 @@
             </tbody>
         </table>
         </div>
-        <div class="col-sm-6"  id="map" style="height:550px; margin-top: 50px;">
+        <div class="col-sm-6"  id="map" style="height:550px; margin-top: 50px; padding:10px">
 
         </div>        
 
@@ -44,8 +44,8 @@
             <div class="container">
             <div class="row gy-4 justify-content-center">
             <div class="col-lg-3">
-                <div style="border: 1px solid white;  display: inline-block; padding: 5px; width: 300px; height:300px">
-                    <img id="avatarPreview" style="width:100%; height:100%" src="" class="img-fluid   float-end w-100" alt="">
+                <div style="border: 1px solid white;  display: inline-block; padding: 5px; width: 300px; max-width:100%;">
+                    <img id="avatarPreview" style="width:100%; height:100%; " src="/storage/avatars/empty.jpeg" class="img-fluid   float-end w-100" alt="">
                 </div>
             </div>
             <div class="col-lg-9 content">                
@@ -53,17 +53,17 @@
                 <div class="row">
                 <div class="col-lg-6">
                     <ul>
-                    <li><i class="bi bi-chevron-right"></i><strong>Name:</strong><span id ="userName">Name</span></li>                  
+                        <li><i class="bi bi-chevron-right"></i><strong>Name:</strong><span id ="userName">Name</span></li>                  
                     </ul>
                 </div>
                 <div class="col-lg-6">
                     <ul>
-                    <li><i class="bi bi-chevron-right"></i><strong>Email Address:</strong><span id = "userEmail">Email Address</span></li>                  
+                        <li><i class="bi bi-chevron-right"></i><strong>Email Address:</strong><span id = "userEmail">Email Address</span></li>                  
                     </ul>
                 </div>
                 </div>
                 <p id="userBio" class="py-3">
-                User Profile Bio Description
+                    User Profile Bio Description
                 </p>            
             </div>         
             </div>

@@ -37,7 +37,13 @@ class UploadController extends Controller{
         return redirect()->back();
     }
     public function index(){
-        $user = Auth::user();
-        return view('upload')->with('user',$user);
+        if(Auth::check()){
+            $user = Auth::user();
+            return view('upload')->with('user',$user);
+        }
+        return redirect()->route('login')
+            ->withErrors([
+            'email' => 'Please login to access to upload the picture.',
+        ])->onlyInput('email');
     }
 }           

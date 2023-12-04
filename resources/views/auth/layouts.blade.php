@@ -99,12 +99,12 @@
             </a>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li>
+                    
                         <li><a href="{{url('/')}}">Dashboard</a></li>
-                    </li>
-                    <li>
+                 
+                 
                         <li><a href="{{url('/upload')}}">Upload</a></li>
-                    </li>
+                   
                     @guest
                     <li>
                         <a class="{{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
@@ -130,7 +130,9 @@
                             </ul>
                         </li>               
                     </ul>
-            </nav>                
+            </nav>
+            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>                
             @endguest                         
     </header><!-- End Header -->
     <section id="contact" class="contact">
