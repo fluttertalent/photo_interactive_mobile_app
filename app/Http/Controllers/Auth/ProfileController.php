@@ -32,7 +32,7 @@ class ProfileController extends Controller
         $user->bio = $request->input('bio');        
 
         $user->save();
-        session()->flash('msg', 'Porfile updated successfully!');
+        session()->flash('msg', 'Profile updated successfully!');
         session()->flash('success', 'true');
         return back()->with(['user'=>$user,'success'=>'true', 'msg'=>'Porfile updated successfully!']); 
     }

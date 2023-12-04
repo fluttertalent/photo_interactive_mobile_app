@@ -91,7 +91,7 @@
 <body>
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container-fluid d-flex align-items-center justify-content-between">
-            <a href="#" class="logo d-flex align-items-center  me-auto me-lg-0">
+            <a href="{{url('/upload')}}" class="logo d-flex align-items-center  me-auto me-lg-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img src="assets/img/logo.png" alt=""> -->
                 <i class="bi bi-camera"></i>
@@ -99,11 +99,10 @@
             </a>
             <nav id="navbar" class="navbar">
                 <ul>
-                    
-                        <li><a href="{{url('/')}}">Dashboard</a></li>
-                 
-                 
-                        <li><a href="{{url('/upload')}}">Upload</a></li>
+                
+                    <li><a href="{{url('/')}}">Dashboard</a></li>                
+                
+                    <li><a href="{{url('/upload')}}">Upload</a></li>
                    
                     @guest
                     <li>
@@ -112,6 +111,10 @@
                     <li>
                         <a class="{{ (request()->is('register')) ? 'active' : '' }}" href="{{ route('register') }}">Register</a>
                     </li>
+                    </ul>
+            </nav>
+            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
                     @else
                         <li class="dropdown"><a href="#"><span> {{ Auth::user()->name }}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                             <ul>
@@ -129,7 +132,7 @@
                                 </li>            
                             </ul>
                         </li>               
-                    </ul>
+                </ul>
             </nav>
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>                
@@ -142,7 +145,7 @@
     </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>    
 <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc9rGvv3VznzdQRxb6PkpkmTUKdQjRDVk&callback=initMap&v=weekly"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2zf2X2V4s5jEuzb9wzCCdCDdnjW5q8E4&callback=initMap&v=weekly"
     defer
 >
 </script>

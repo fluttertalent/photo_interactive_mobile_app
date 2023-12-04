@@ -21,6 +21,7 @@ class UploadController extends Controller{
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
             $user = Auth::user();
+            
             Picture::create([
                 'url' => $imagePath,
                 'user_id' => $user->id,
