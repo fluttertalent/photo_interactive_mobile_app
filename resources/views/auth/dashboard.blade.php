@@ -109,164 +109,167 @@
 
     function initMap() {
     
-    var markerData = <?php echo json_encode($pictures); ?>;
+        var markerData = <?php echo json_encode($pictures); ?>;
 
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 35.829290, lng: -75.823490 },
-        zoom: 16,
-    });
-
-    
-
-    for (let i = 0; i < markerData.length; i++) {   
-
-        let icon = {
-            url : "{{asset('storage/')}}"+ "/" + markerData[i].url,
-            scaledSize : new google.maps.Size(30, 30),
-        }
-
-        var marker = new google.maps.Marker({
-            position: { lat: parseFloat(markerData[i].lat), lng: parseFloat(markerData[i].lng)},
-            map: map,
-            icon: icon
-        });     
-
-        marker.addListener('click', function() {
-            
-            // Handle marker click event here
-            $.ajax({
-                url: "/pictures/" + markerData[i].id,
-                type: "GET",
-                success: function(data) {
-                    
-                    let imageUrl = "{{asset('storage/')}}"+ "/" + data['user'].avatar;
-                    let name = data['user'].name;
-                    let email = data['user'].email;
-                    let title = data['user'].title;
-                    let bio =  data['user'].bio;
-
-                    // Set the values of the input fields and image preview
-                    $("#avatarPreview").attr("src", imageUrl);
-                    $("#userName").text(name);
-                    $("#userEmail").text(email);
-                    $("#userTitle").text(title);
-                    $('#userBio').text(bio);
-                    $('#userLink').attr('href', '/welcome/' + data['user'].id);
-
-
-                    var swiperWrapper = $('.swiper-wrapper');
-                    swiperWrapper.empty();
-
-                    $.each(data['pictures'], function(index, picture) {
-                    var swiperSlide = $('<div>').addClass('swiper-slide');
-                    var testimonialItem = $('<div>').addClass('testimonial-item');
-                    var image = $('<img>').attr('src', "{{asset('storage/')}}"+ "/" +picture.url);
-                        testimonialItem.append(image);
-                        swiperSlide.append(testimonialItem);
-                        swiperWrapper.append(swiperSlide);
-                    });
-
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    alert("Failed to retrieve user data.");
-                }
-            });
-            // You can perform any desired actions when the marker is clicked
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 35.829290, lng: -75.823490 },
+            zoom: 16,
         });
 
-    }
-
-
-
-    console.log("button");
-    const locationButton = document.createElement("button");
-
-    locationButton.textContent = "Pan to Current Location";
-    locationButton.classList.add("custom-map-control-button");
-    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(locationButton);  
         
-    
 
-    //add the event to the centering button
-    locationButton.addEventListener("click", () => {
+        for (let i = 0; i < markerData.length; i++) {   
+
+            let icon = {
+                url : "{{asset('storage/')}}"+ "/" + markerData[i].url,
+                scaledSize : new google.maps.Size(30, 30),
+            }
+
+            var marker = new google.maps.Marker({
+                position: { lat: parseFloat(markerData[i].lat), lng: parseFloat(markerData[i].lng)},
+                map: map,
+                icon: icon
+            });     
+
+            marker.addListener('click', function() {
+                
+                // Handle marker click event here
+                $.ajax({
+                    url: "/pictures/" + markerData[i].id,
+                    type: "GET",
+                    success: function(data) {
+                        
+                        let imageUrl = "{{asset('storage/')}}"+ "/" + data['user'].avatar;
+                        let name = data['user'].name;
+                        let email = data['user'].email;
+                        let title = data['user'].title;
+                        let bio =  data['user'].bio;
+
+                        // Set the values of the input fields and image preview
+                        $("#avatarPreview").attr("src", imageUrl);
+                        $("#userName").text(name);
+                        $("#userEmail").text(email);
+                        $("#userTitle").text(title);
+                        $('#userBio').text(bio);
+                        $('#userLink').attr('href', '/welcome/' + data['user'].id);
+
+
+                        var swiperWrapper = $('.swiper-wrapper');
+                        swiperWrapper.empty();
+
+                        $.each(data['pictures'], function(index, picture) {
+                        var swiperSlide = $('<div>').addClass('swiper-slide');
+                        var testimonialItem = $('<div>').addClass('testimonial-item');
+                        var image = $('<img>').attr('src', "{{asset('storage/')}}"+ "/" +picture.url);
+                            testimonialItem.append(image);
+                            swiperSlide.append(testimonialItem);
+                            swiperWrapper.append(swiperSlide);
+                        });
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert("Failed to retrieve user data.");
+                    }
+                });
+                // You can perform any desired actions when the marker is clicked
+            });
+
+        }
+
+
+
+        console.log("button");
+        const locationButton = document.createElement("button");
+
+        locationButton.textContent = "Pan to Current Location";
+        locationButton.classList.add("custom-map-control-button");
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(locationButton);  
+            
+        
+
+        //add the event to the centering button
+        locationButton.addEventListener("click", () => {
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                        zoom: 20,
+                    };
+                    console.log(pos);
+                    toastr.success("The current user's location is "+ pos.lat +"," + pos.lng);
+                    map.setCenter(pos);
+                    },
+                    () => {
+                        handleLocationError(true,  map.getCenter());
+                    },
+                );
+            } else {
+            console.log("Browser doesn't support Geolocation");
+            // Browser doesn't support Geolocation
+            handleLocationError(false,  map.getCenter());
+            }
+        });
+
+
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                (position) => {
+            (position) => {
+
                 const pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
                     zoom: 20,
                 };
+
                 console.log(pos);
                 toastr.success("The current user's location is "+ pos.lat +"," + pos.lng);
                 map.setCenter(pos);
-                },
-                () => {
-                    handleLocationError(true,  map.getCenter());
-                },
-            );
-        } else {
-        console.log("Browser doesn't support Geolocation");
-        // Browser doesn't support Geolocation
-        handleLocationError(false,  map.getCenter());
-        }
-    });
 
+                $.ajax({
+                    url: "/pictures/table",
+                    type: "POST",
+                    data: {
+                        "lat":pos.lat,
+                        "lng":pos.lng,
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
+                    },
+                    success: function(data) {    
 
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-        (position) => {
-            const pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-                zoom: 20,
-            };
-            console.log(pos);
-            toastr.success("The current user's location is "+ pos.lat +"," + pos.lng);
-            map.setCenter(pos);
-            $.ajax({
-                url: "/pictures/table",
-                type: "POST",
-                data: {
-                    "lat":pos.lat,
-                    "lng":pos.lng,
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-                },
-                success: function(data) {    
-
-                    var pictureTable = $('#pictures-table tbody');                         
-                    $.each(data['pictures'], function(index, picture) {
-                        pictureTable.append(
-                            "<tr id=" + picture.id + ">" +
-                                "<td>" + picture.userName + "</td>" +
-                                "<td>" + picture.date + "</td>" +
-                                "<td>" + picture.item + "</td>" +
-                                "<td>" + picture.time + "</td>" +
-                            "</tr>"
+                        var pictureTable = $('#pictures-table tbody');                         
+                        $.each(data['pictures'], function(index, picture) {
+                            pictureTable.append(
+                                "<tr id=" + picture.id + " lat="+ picture.lat+ " lng="+ picture.lng + ">" +
+                                    "<td>" + picture.userName + "</td>" +
+                                    "<td>" + picture.date + "</td>" +
+                                    "<td>" + picture.item + "</td>" +
+                                    "<td>" + picture.time + "</td>" +
+                                "</tr>"
                             );
-                    });
+                        });
 
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    alert("Failed to retrieve picture data.");
-                }
-            });
-        },
-        () => {
-        handleLocationError(true,  map.getCenter());
-        },
-    );
-    } else {
-        console.log("Browser doesn't support Geolocation");
-        //Browser doesn't support Geolocation
-        handleLocationError(false, map.getCenter());
-    }        
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert("Failed to retrieve picture data.");
+                    }
+                });
+            },
+            () => {
+            handleLocationError(true,  map.getCenter());
+            },
+        );
+        } else {
+            console.log("Browser doesn't support Geolocation");
+            //Browser doesn't support Geolocation
+            handleLocationError(false, map.getCenter());
+        }        
     }
 
     function handleLocationError(browserHasGeolocation,  pos) {
@@ -280,14 +283,8 @@
     window.initMap = initMap;   
 
     // Get all the tr elements in the table  
-
-</script>
-
-<script>
-   $('body').on('click', '#pictures-table tbody tr', function() {
-  // Code to be executed when a row in the pictures table is clicked
-
-    // Get the id of the clicked tr element
+    $('body').on('click', '#pictures-table tbody tr', function() {
+        // Get the id of the clicked tr element
     let id = $(this).attr("id");
     console.log("Clicked on row:", id);
 
@@ -295,6 +292,11 @@
 
     // Add the 'selected' class to the clicked tr element
     $(this).find("td").addClass("selected");
+
+    var lat = $(this).attr("lat");
+    var lng = $(this).attr("lng");
+    console.log($(this).attr("lat"));
+    console.log($(this).attr("lng"));
 
     $.ajax({
         url: "/pictures/" + id,
@@ -322,11 +324,19 @@
                 var swiperSlide = $('<div>').addClass('swiper-slide');
                 var testimonialItem = $('<div>').addClass('testimonial-item');
                 var image = $('<img>').attr('src', "{{asset('storage/')}}"+ "/" +picture.url);
-
                 testimonialItem.append(image);
                 swiperSlide.append(testimonialItem);
                 swiperWrapper.append(swiperSlide);
             });
+
+            const pos = {
+                lat: parseFloat(lat),
+                lng: parseFloat(lng),
+                zoom: 20,
+            };
+            
+            console.log(pos);            
+            map.setCenter(pos);
 
         },
         error: function(xhr, status, error) {
@@ -336,5 +346,6 @@
     });
 
     });
+  // Code to be executed when a row in the pictures table is clicked
 </script>
 @endsection

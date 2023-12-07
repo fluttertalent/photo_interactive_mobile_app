@@ -25,6 +25,7 @@
                 </div>
               </div>             
               <div class="text-center"><button type="submit">Log In</button></div>
+              <p>Don't have an account? <span style="color:blue"><a class="" href="{{ route('register') }}">Register</a></span></p>
             </form>
           </div><!-- End Contact Form -->
     </div>    

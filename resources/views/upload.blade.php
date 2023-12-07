@@ -22,12 +22,13 @@
                                 </div>
                             </div>
                             <div class="text-center mb-4">
-                                <label for="avatar" style="margin: auto;">Browse a Photo</label>
+                                <label for="avatar" style="margin: auto; font-size:20px">Browse a Photo</label>
                                 <div class="contentarea">                                    
                                     <div class="camera">
                                         <video id="video">Video stream not available.</video>
                                     </div>
-                                    <div><label id="startbutton">or Take a photo</label></div>
+                                    <div><label id="flipbutton">Flip Camera</label></div>
+                                    <div><label id="startbutton" style="font-size: 20px;">or Take a photo</label></div>
                                     <canvas id="canvas"></canvas>
                                     <div class="output">
                                         <img id="photo" alt="The screen capture will appear in this box.">
@@ -124,7 +125,7 @@
                 })
                 .catch(function(err) {
                     console.log("An error occurred: " + err);
-                });
+            });
 
             video.addEventListener('canplay', function(ev) {
                 if (!streaming) {
@@ -133,7 +134,7 @@
                     if (isNaN(height)) {
                         height = width / (4 / 3);
                     }
-
+                    
                     video.setAttribute('width', width);
                     video.setAttribute('height', height);
                     canvas.setAttribute('width', width);
@@ -141,6 +142,7 @@
                     streaming = true;
                 }
             }, false);
+
 
             startbutton.addEventListener('click', function(ev) {
                 takepicture();

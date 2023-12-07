@@ -14,8 +14,7 @@ class DashboardController extends Controller{
         try {
             $picture = Picture::findOrFail($id); 
             $user = User::findOrFail($picture->user_id);
-            $user_pictures = Picture::where('user_id',$user->id)->get();
-            
+            $user_pictures = Picture::where('user_id',$user->id)->get();            
             return response()->json(['user'=>$user, 'pictures'=>$user_pictures]);
 
         } catch (\Exception $e) {
@@ -33,8 +32,7 @@ class DashboardController extends Controller{
             SELECT pictures.*, users.name as userName,
             (6371 * acos(cos(radians($lat)) * cos(radians(pictures.lat)) * cos(radians(pictures.lng) - radians($lng)) + sin(radians($lat)) * sin(radians(pictures.lat)))) AS distance
             FROM pictures
-            LEFT JOIN users ON users.id = pictures.user_id
-            HAVING distance <= 2
+            LEFT JOIN users ON users.id = pictures.user_id            
             ORDER BY pictures.date DESC, pictures.time DESC 
         ");
 

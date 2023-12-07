@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Front\ContactController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,3 +51,24 @@ Route::get('/pictures/{id}', [DashboardController::class, 'getUserData'])->name(
 Route::post('/pictures/table', [DashboardController::class, 'getPictureTable']);
 Route::get('/upload', [UploadController::class, 'index'])->name('upload');
 Route::post('/upload', [UploadController::class, 'uploadPic'])->name('upload.uploadPic');
+
+// Routes for Admin
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
+
+    Route::get('/', 'HomeController@index');
+    // User Routes
+    Route::resource('user', 'UserController');
+    Route::delete('user/{id}', 'UserController@destroy');
+    Route::get('user/{id}/profile', 'UserController@profile');
+    Route::put('user/{id}/profile', 'UserController@update_profile');
+    Route::get('user/{id}/setting', 'UserController@setting');
+    Route::put('user/{id}/setting', 'UserController@update_setting');
+
+    Route::resource('image', 'ImageController');
+    
+});
+
+
+
+
+

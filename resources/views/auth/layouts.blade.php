@@ -107,10 +107,7 @@
                     @guest
                     <li>
                         <a class="{{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
-                    </li>
-                    <li>
-                        <a class="{{ (request()->is('register')) ? 'active' : '' }}" href="{{ route('register') }}">Register</a>
-                    </li>
+                    </li>                    
                     </ul>
             </nav>
             <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
