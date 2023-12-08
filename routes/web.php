@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\ProfileController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Front\UploadController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Front\ContactController;
+use App\Http\Controllers\Front\ReviewController;
 
 
 /*
@@ -51,6 +53,7 @@ Route::get('/pictures/{id}', [DashboardController::class, 'getUserData'])->name(
 Route::post('/pictures/table', [DashboardController::class, 'getPictureTable']);
 Route::get('/upload', [UploadController::class, 'index'])->name('upload');
 Route::post('/upload', [UploadController::class, 'uploadPic'])->name('upload.uploadPic');
+Route::post('/reviews', [ReviewController::class, 'sendReview'])->name('review.sendReivew');
 
 // Routes for Admin
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function () {

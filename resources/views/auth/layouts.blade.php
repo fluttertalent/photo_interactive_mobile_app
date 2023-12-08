@@ -86,6 +86,24 @@
         left: 20px; /* Adjust the right position as needed */
         z-index: 1; /* Ensure the button appears above other elements */
     }
+ 
+    img[src$="#custom_marker"]{
+        border: 4px solid #EEE !important;
+        border-radius:50%;
+    }
+
+    .slider-menu {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+</style>
     </style>
 </head>
 <body>
@@ -103,6 +121,8 @@
                     <li><a href="{{url('/')}}">Dashboard</a></li>                
                 
                     <li><a href="{{url('/upload')}}">Upload</a></li>
+
+                    <li><a href="{{url('/statistics')}}">Statistics</a></li>
                    
                     @guest
                     <li>
@@ -146,6 +166,7 @@
     defer
 >
 </script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script>
 
 </script>

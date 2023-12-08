@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="row justify-content-center mt-5 ">
-    @csrf    
     <div class="col-sm-6" style="margin-top: 50px;">
-    <table id="pictures-table" class="table table-dark  php-email-form">
+    @csrf
+        <table id="pictures-table" class="table table-dark  php-email-form">
             <thead class="thead-dark" style="height:50px">
                 <tr>
                     <th>UserName</th>
@@ -15,8 +15,8 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($pictures as $picture)
-                    <tr id="{{$picture->id}}" lat="{{$picture->lat}}" lng="{{$picture->lng}}">
+                <!-- @forelse ($pictures as $picture)
+                    <tr id="{{$picture->id}}">
                         <td>{{ $picture->userName }}</td>
                         <td>{{ $picture->date }}</td>
                         <td>{{ $picture->item }}</td>
@@ -31,112 +31,47 @@
                         <td style="height: 50px"></td>
                     </tr>
                     @endfor
-                @endforelse
+                @endforelse -->
             </tbody>
         </table>
-    </div>
-    <div class="col-sm-6" id="map" style="height:550px; margin-top: 50px; padding:10px">
-    </div>       
-    
-    <!--Modal: modalRelatedContent-->
-    <div class="modal fade right" id="modalRelatedContent" tabindex="-1" role="dialog"
-    aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" pictureId="">
-    <div  class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
-        <!--Content-->
-        <div class="modal-content">
-        <!--Header-->
-        <div  style="background:grey" class="modal-header">
-            <p id="photoItem" style="color:black; font-size: 20px;" class="heading">Related article</p>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" class="white-text">&times;</span>
-            </button>
         </div>
-        <!--Body-->
-        <div style="background:grey" class="modal-body">
-            <div class="row">
-                <div class="col-5">
-                    <img id="imgSource" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(55).webp"
-                        class="img-fluid" alt="">
-                    <p id="imgDate"></p>
-                </div>
-                <div class="col-7">
-                <p class="text-center">
-                    <strong>Your rating</strong>
-                </p>
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="5" checked="">
-                    <label class="form-check-label" for="radio-17">Very good</label>
-                </div>
+        <div class="col-sm-6"  id="map" style="height:550px; margin-top: 50px; padding:10px">
 
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="4">
-                    <label class="form-check-label" for="radio-27">Good</label>
-                </div>
-
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="3">
-                    <label class="form-check-label" for="radio-37">Mediocre</label>
-                </div>
-
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="2">
-                    <label class="form-check-label" for="radio-47">Bad</label>
-                </div>
-
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="1">
-                    <label class="form-check-label" for="radio-57">Very bad</label>
-                </div>
-                </div>
-            </div>
-        </div>
-        <div style="background:grey" class="modal-footer justify-content-center">
-          <a type="button" id="sendReview" style="background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;" class=" waves-effect waves-light">Send
-            <i class="fas fa-paper-plane ml-1"></i>
-          </a>
-          <a type="button" style="background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;" class="close" data-dismiss="modal">Cancel</a>
-        </div>
-        </div>
-        <!--/.Content-->
-    </div>
-    </div>
-    <!--Modal: modalRelatedContent-->
+        </div>        
 
     <section id="about" class="about mt-5">
         <a href="#" id="userLink">
             <div class="container">
-                <div class="row gy-4 justify-content-center">
-                    <div class="col-lg-3">
-                        <div style="border: 1px solid white;  display: inline-block; padding: 5px; width: 300px; max-width:100%;">
-                            <img id="avatarPreview" style="width:100%; height:100%; " src="/storage/avatars/empty.jpeg" class="img-fluid   float-end w-100" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-9 content">                
-                        <h2 id="userTitle">User Profile Title</h2>
-                        <div class="row">
-                            <div class="col-lg-6"></div>   
-                            <div class="col-lg-6"></div>                         
-                            <div class="col-lg-6">
-                                <ul>
-                                    <li><i class="bi bi-chevron-right"></i><strong>Name:</strong><span id ="userName">Name</span></li>                  
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <ul>
-                                    <li><i class="bi bi-chevron-right"></i><strong>Email Address:</strong><span id = "userEmail">Email Address</span></li>                  
-                                </ul>
-                            </div>
-                        </div>
-                        <p id="userBio" class="py-3">
-                            User Profile Bio Description
-                        </p>            
-                    </div>         
+            <div class="row gy-4 justify-content-center">
+            <div class="col-lg-3">
+                <div style="border: 1px solid white;  display: inline-block; padding: 5px; width: 300px; max-width:100%;">
+                    <img id="avatarPreview" style="width:100%; height:100%; " src="/storage/avatars/empty.jpeg" class="img-fluid   float-end w-100" alt="">
                 </div>
+            </div>
+            <div class="col-lg-9 content">                
+                    <h2 id="userTitle">User Profile Title</h2>
+                <div class="row">
+                <div class="col-lg-6">
+                    <ul>
+                        <li><i class="bi bi-chevron-right"></i><strong>Name:</strong><span id ="userName">Name</span></li>                  
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <ul>
+                        <li><i class="bi bi-chevron-right"></i><strong>Email Address:</strong><span id = "userEmail">Email Address</span></li>                  
+                    </ul>
+                </div>
+                </div>
+                <p id="userBio" class="py-3">
+                    User Profile Bio Description
+                </p>            
+            </div>         
+            </div>
             </div>
         </a>   
     </section>
 
-    <!-- <section id="testimonials" class="testimonials">
+    <section id="testimonials" class="testimonials">
         <div class="container">
             <div class="section-header">
             <h2>Uploaded Images</h2>
@@ -147,12 +82,12 @@
                     <div class="testimonial-item">
                         <img src="">
                     </div>
-                    </div>
+                    </div><!-- End testimonial item -->
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
         </div>
-    </section> -->
+    </section>
     <!-- End Testimonials Section -->
 
         <!-- @if ($message = Session::get('success'))
@@ -166,7 +101,11 @@
         @endif   -->
 </div>
 <script>
-    
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
+
     let map;
 
     function initMap() {
@@ -175,16 +114,10 @@
 
         map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 35.829290, lng: -75.823490 },
-            zoom: 10,            
-        });        
-
-        // Add an event listener for the zoom_changed event
-        map.addListener('zoom_changed', function() {
-        const zoomLevel = map.getZoom();
-  
+            zoom: 10,
         });
 
-        var markers = [];
+        
 
         for (let i = 0; i < markerData.length; i++) {   
 
@@ -199,14 +132,8 @@
                 icon: icon
             });     
 
-            markers.push(marker);          
             marker.addListener('click', function() {
-
-                $('#photoItem').html(markerData[i].item);
-                $('#imgSource').attr('src',  "{{asset('storage/')}}"+ "/" + markerData[i].url);
-                $("#modalRelatedContent").modal("show");
-                $("#modalRelatedContent").attr('pictureId', markerData[i].id);
-                $('#imgDate').html(markerData[i].date);
+                
                 // Handle marker click event here
                 $.ajax({
                     url: "/pictures/" + markerData[i].id,
@@ -226,13 +153,15 @@
                         $("#userTitle").text(title);
                         $('#userBio').text(bio);
                         $('#userLink').attr('href', '/welcome/' + data['user'].id);
+
+
                         var swiperWrapper = $('.swiper-wrapper');
                         swiperWrapper.empty();
 
                         $.each(data['pictures'], function(index, picture) {
-                            var swiperSlide = $('<div>').addClass('swiper-slide');
-                            var testimonialItem = $('<div>').addClass('testimonial-item');
-                            var image = $('<img>').attr('src', "{{asset('storage/')}}"+ "/" +picture.url);
+                        var swiperSlide = $('<div>').addClass('swiper-slide');
+                        var testimonialItem = $('<div>').addClass('testimonial-item');
+                        var image = $('<img>').attr('src', "{{asset('storage/')}}"+ "/" +picture.url);
                             testimonialItem.append(image);
                             swiperSlide.append(testimonialItem);
                             swiperWrapper.append(swiperSlide);
@@ -247,16 +176,13 @@
                 // You can perform any desired actions when the marker is clicked
             });
 
-        }      
+        }
 
-        // Create a new MarkerClusterer instance
-        var markerCluster = new MarkerClusterer(map, markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-        });
 
-        // Set the minimum cluster size to 2     
-    
+
+        console.log("button");
         const locationButton = document.createElement("button");
+
         locationButton.textContent = "Pan to Current Location";
         locationButton.classList.add("custom-map-control-button");
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(locationButton);  
@@ -274,7 +200,7 @@
                         lng: position.coords.longitude,
                         zoom: 10,
                     };
-                   
+                    console.log(pos);
                     toastr.success("The current user's location is "+ pos.lat +"," + pos.lng);
                     map.setCenter(pos);
                     },
@@ -301,7 +227,7 @@
                     zoom: 10,
                 };
 
-
+                console.log(pos);
                 toastr.success("The current user's location is "+ pos.lat +"," + pos.lng);
                 map.setCenter(pos);
 
@@ -361,12 +287,17 @@
     $('body').on('click', '#pictures-table tbody tr', function() {
         // Get the id of the clicked tr element
     let id = $(this).attr("id");
+    console.log("Clicked on row:", id);
+
     $("#pictures-table tbody tr td").removeClass("selected");
+
     // Add the 'selected' class to the clicked tr element
     $(this).find("td").addClass("selected");
+
     var lat = $(this).attr("lat");
     var lng = $(this).attr("lng");
-
+    console.log($(this).attr("lat"));
+    console.log($(this).attr("lng"));
 
     $.ajax({
         url: "/pictures/" + id,
@@ -402,17 +333,11 @@
             const pos = {
                 lat: parseFloat(lat),
                 lng: parseFloat(lng),
-                zoom: 20,
+                zoom: 10,
             };
             
-             
-            const newZoom = 20;
-
-            // Update the map options with the new center and zoom level
-            map.setOptions({
-            center: pos,
-            zoom: newZoom
-            });
+            console.log(pos);            
+            map.setCenter(pos);
 
         },
         error: function(xhr, status, error) {
@@ -420,48 +345,8 @@
             alert("Failed to retrieve user data.");
         }
     });
+
     });
-    $(document).ready(function() {
-        // Note: This example requires that you consent to location sharing when
-        // prompted by your browser. If you see the error "The Geolocation service
-        // failed.", it means you probably did not give permission for the browser to
-        // locate you.
-        $('.close').click(function() {           
-            $("#modalRelatedContent").modal('hide');
-        });
-
-        $('#sendReview').click(function(){
-
-            const mark = $('input[name="mark"]:checked').val();
-            var picture_id = $('#modalRelatedContent').attr('pictureId');
-
-            $.ajax({
-                url: "/reviews",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-                },
-                data: {
-                    "mark": mark,
-                    "picture_id": picture_id,
-                }
-                ,
-                success: function(data) { 
-                    if(data = 'success'){
-                        toastr.success("Review of the post has been sent successfully!");
-                        $("#modalRelatedContent").modal('hide');
-                    }
-                },
-                error: function(xhr, status, error){
-                    console.log(error);
-                    alert("Failed to save review data.");
-                }
-            });
-
-        // Code to be executed when a row in the pictures table is clicked
-    });
-});
-
-    
-  </script>
+  // Code to be executed when a row in the pictures table is clicked
+</script>
 @endsection
