@@ -9,6 +9,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\ReviewController;
+use App\Http\Controllers\Front\PhotoController;
 
 
 /*
@@ -54,6 +55,10 @@ Route::post('/pictures/table', [DashboardController::class, 'getPictureTable']);
 Route::get('/upload', [UploadController::class, 'index'])->name('upload');
 Route::post('/upload', [UploadController::class, 'uploadPic'])->name('upload.uploadPic');
 Route::post('/reviews', [ReviewController::class, 'sendReview'])->name('review.sendReivew');
+Route::get('/statistics', [ReviewController::class, 'rankingView'])->name('review.rankingView');
+Route::get('/ranking', [ReviewController::class, 'ranking']);
+Route::get('/photos', [PhotoController::class, 'index']);
+Route::get('/photos/{id}', [PhotoController::class, 'delete']);
 
 // Routes for Admin
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function () {

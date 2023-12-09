@@ -14,7 +14,7 @@
                                 <div class="form-group col-md-6 mb-4">
                                     <input type="file" name="avatar" id="avatar" accept="image/*" onchange="previewAvatar(event)" style="display:none">
                                     @if ($errors->has('avatar'))
-                                            <span class="text-danger">{{ $errors->first('avatar') }}</span>
+                                        <span class="text-danger">{{ $errors->first('avatar') }}</span>
                                     @endif
                                     <label for="avatar" style="display: inline;"><img id="avatarPreview" src="{{asset('storage/'.$user->avatar)}}" alt="Choose Avatar" style="border-radius: 50%; max-width: 150px; max-height: 150px;"></label>
                                     

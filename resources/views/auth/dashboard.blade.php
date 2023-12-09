@@ -41,64 +41,43 @@
     <!--Modal: modalRelatedContent-->
     <div class="modal fade right" id="modalRelatedContent" tabindex="-1" role="dialog"
     aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" pictureId="">
-    <div  class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
         <!--Content-->
-        <div class="modal-content">
-        <!--Header-->
-        <div  style="background:grey" class="modal-header">
-            <p id="photoItem" style="color:black; font-size: 20px;" class="heading">Related article</p>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" class="white-text">&times;</span>
-            </button>
-        </div>
-        <!--Body-->
-        <div style="background:grey" class="modal-body">
-            <div class="row">
-                <div class="col-5">
-                    <img id="imgSource" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(55).webp"
-                        class="img-fluid" alt="">
-                    <p id="imgDate"></p>
+        <div  class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
+            <div class="modal-content">
+                <!--Header-->
+                <div  style="background:grey" class="modal-header">
+                    <p id="photoItem" style="color:black; font-size: 20px;" class="heading">Related article</p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
                 </div>
-                <div class="col-7">
-                <p class="text-center">
-                    <strong>Your rating</strong>
-                </p>
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="5" checked="">
-                    <label class="form-check-label" for="radio-17">Very good</label>
+                <!--Body-->
+                <div style="background:grey" class="modal-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <img id="imgSource" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(55).webp"
+                                class="img-fluid" alt="">
+                            <p id="imgDate"></p>
+                        </div>
+                        <div class="col-7">
+                        <p class="text-center">
+                            <strong>Rate the post</strong>
+                        </p>
+                        <div class="container">                    
+                            <input id="rate" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+                        </div>
+                        </div>  
+                    </div>
                 </div>
-
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="4">
-                    <label class="form-check-label" for="radio-27">Good</label>
-                </div>
-
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="3">
-                    <label class="form-check-label" for="radio-37">Mediocre</label>
-                </div>
-
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="2">
-                    <label class="form-check-label" for="radio-47">Bad</label>
-                </div>
-
-                <div class="form-check mb-4">
-                    <input class="form-check-input" name="mark" type="radio" value="1">
-                    <label class="form-check-label" for="radio-57">Very bad</label>
-                </div>
+                <div style="background:grey" class="modal-footer justify-content-center">
+                <a type="button" id="sendReview" style="background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;" class=" waves-effect waves-light">Send
+                    <i class="fas fa-paper-plane ml-1"></i>
+                </a>
+                <a type="button" style="background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;" class="close" data-dismiss="modal">Cancel</a>
                 </div>
             </div>
-        </div>
-        <div style="background:grey" class="modal-footer justify-content-center">
-          <a type="button" id="sendReview" style="background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;" class=" waves-effect waves-light">Send
-            <i class="fas fa-paper-plane ml-1"></i>
-          </a>
-          <a type="button" style="background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;" class="close" data-dismiss="modal">Cancel</a>
-        </div>
-        </div>
         <!--/.Content-->
-    </div>
+        </div>
     </div>
     <!--Modal: modalRelatedContent-->
 
@@ -200,6 +179,7 @@
             });     
 
             markers.push(marker);          
+            
             marker.addListener('click', function() {
 
                 $('#photoItem').html(markerData[i].item);
@@ -212,7 +192,6 @@
                     url: "/pictures/" + markerData[i].id,
                     type: "GET",
                     success: function(data) {
-                        
                         let imageUrl = "{{asset('storage/')}}"+ "/" + data['user'].avatar;
                         let name = data['user'].name;
                         let email = data['user'].email;
@@ -430,9 +409,9 @@
             $("#modalRelatedContent").modal('hide');
         });
 
-        $('#sendReview').click(function(){
+        $('#sendReview').click(function(){    
 
-            const mark = $('input[name="mark"]:checked').val();
+            const mark = $('#rate').val();
             var picture_id = $('#modalRelatedContent').attr('pictureId');
 
             $.ajax({
@@ -441,6 +420,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
                 },
+
                 data: {
                     "mark": mark,
                     "picture_id": picture_id,
@@ -452,6 +432,7 @@
                         $("#modalRelatedContent").modal('hide');
                     }
                 },
+                
                 error: function(xhr, status, error){
                     console.log(error);
                     alert("Failed to save review data.");
@@ -460,8 +441,8 @@
 
         // Code to be executed when a row in the pictures table is clicked
     });
-});
 
-    
+
+});    
   </script>
 @endsection

@@ -20,6 +20,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+    <!--For five star review CSS Files -->
+    
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+
     <style>
         .selected {
             background-color: green !important;
@@ -102,7 +109,12 @@
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
-
+    .review-button {
+        background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;
+    }
+    .review-button.active {
+        background-color: #333432;
+    }
 </style>
     </style>
 </head>
@@ -118,40 +130,44 @@
             <nav id="navbar" class="navbar">
                 <ul>
                 
-                    <li><a href="{{url('/')}}">Dashboard</a></li>                
+                    <li><a href="{{url('/')}}" style="font-size:1.5em">Dashboard</a></li>                
                 
-                    <li><a href="{{url('/upload')}}">Upload</a></li>
+                    <li><a href="{{url('/upload')}}" style="font-size:1.5em">Upload</a></li>
 
-                    <li><a href="{{url('/statistics')}}">Statistics</a></li>
+                    <li><a href="{{url('/photos')}}" style="font-size:1.5em">My Photos</a></li>
+
+                    <li><a href="{{url('/statistics')}}" style="font-size:1.5em">Statistics</a></li>
                    
                     @guest
                     <li>
-                        <a class="{{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
+                        <a class="{{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}" style="font-size:1.5em">Login</a>
                     </li>                    
                     </ul>
             </nav>
-            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i class="mobile-nav-toggle mobile-nav-show bi bi-list">Menu</i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
                     @else
-                        <li class="dropdown"><a href="#"><span> {{ Auth::user()->name }}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <li class="dropdown"><a href="#" style="font-size:1.5em"><span> {{ Auth::user()->name }}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                             <ul>
                                 <li>
                                     <a  href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();"
+                                        style="font-size:1.5em"
                                         >Logout</a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                             @csrf
                                         </form>
                                 </li>
-                                <li><a href="{{ route('profile.show') }}"                            
+                                <li><a href="{{ route('profile.show') }}"
+                                style="font-size:1.5em"                            
                                     >Profile</a>                           
                                 </li>            
                             </ul>
                         </li>               
                 </ul>
             </nav>
-            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i class="mobile-nav-toggle mobile-nav-show bi bi-list">Menu</i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>                
             @endguest                         
     </header><!-- End Header -->
@@ -177,7 +193,9 @@
 <script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
 <script src="{{asset('assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
 <script src="{{asset('assets/vendor/aos/aos.js')}}"></script>
-
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/locales/LANG.js"></script>
 
 <!-- Template Main JS File -->
 <script src="{{asset('assets/js/main.js')}}"></script>

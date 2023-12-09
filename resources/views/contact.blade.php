@@ -59,7 +59,7 @@
                 <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
             </div>
-            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i class="mobile-nav-toggle mobile-nav-show bi bi-list">Menu</i>
             <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
             </div>
