@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel 10 Custom User Registration & Login Tutorial - AllPHPTricks.com</title>
+    <title>NatureSpy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     
     <!-- Vendor CSS Files -->
@@ -47,6 +47,8 @@
         display: none;
     }
     .camera {
+        margin-top: 20px;
+        margin-bottom: 20px;
         width: 340px;
         display: inline-block;
     }
@@ -110,11 +112,35 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
     .review-button {
-        background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;
+        background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px; margin: 10px 5px 5px 5px;
     }
+  
     .review-button.active {
         background-color: #333432;
     }
+    .login-container {
+      width: 100%; /* Set the width of the container */
+      height: auto; /* Set the height of the container */
+      overflow: hidden; /* Hide any overflowing content */
+    }
+    .login-container img {
+      margin: auto;
+      width: 100%; /* Make the image fill the width of the container */
+      height: auto; /* Maintain the image's aspect ratio */
+      display: block; /* Remove any extra space below the image */
+    }
+    .photo-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+  .photo-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 </style>
     </style>
 </head>

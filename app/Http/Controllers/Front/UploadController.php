@@ -10,32 +10,40 @@ use Illuminate\Support\Facades\Auth;
 
 class UploadController extends Controller{
 
-    public function uploadPic(Request $request){        
-        $request->validate([
-            'image' => 'image|max:2048|required', // Adjust the maximum file size as needed
-            'item' => 'required',
-            'lat' => 'required',
-            'lng' => 'required',
-        ]);
+    public function uploadPic(Request $request){   
+        if(Auth::check()){   
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $user = Auth::user();
-            
-            Picture::create([
-                'url' => $imagePath,
-                'user_id' => $user->id,
-                'date' => date("Y-m-d"),
-                'time' => date("H:i:s"),
-                'item' => $request->input('item'),
-                'lat' => $request->input('lat'),
-                'lng' => $request->input('lng')
-            ]);           
+            $request->validate([
+                'image' => 'image|max:6134|required', // Adjust the maximum file size as needed
+                'item' => 'required',
+                'lat' => 'required',
+                'lng' => 'required',
+            ]);
+
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images', 'public');
+                $user = Auth::user();
+                
+                Picture::create([
+                    'url' => $imagePath,
+                    'user_id' => $user->id,
+                    'date' => date("Y-m-d"),
+                    'time' => date("H:i:s"),
+                    'item' => $request->input('item'),
+                    'lat' => $request->input('lat'),
+                    'lng' => $request->input('lng')
+                ]);           
+            }
+
+            session()->flash('msg','Image uploaded successfully.');
+            session()->flash('success','true');
+            return redirect()->route('dashboard');
         }
-
-        session()->flash('msg','Image uploaded successfully.');
-        session()->flash('success','true');
-        return redirect()->back();
+        return redirect()->route('login')
+            ->withErrors([
+            'email' => 'Please login to upload the picture.',
+        ])->onlyInput('email');
+        
     }
     public function index(){
         if(Auth::check()){
@@ -44,7 +52,7 @@ class UploadController extends Controller{
         }
         return redirect()->route('login')
             ->withErrors([
-            'email' => 'Please login to access to upload the picture.',
+            'email' => 'Please login to access to upload page.',
         ])->onlyInput('email');
     }
 }           

@@ -61,7 +61,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $request->validate([
-            'avatar' => 'image|max:2048' // Adjust the maximum file size as needed
+            'avatar' => 'image|max:6134' // Adjust the maximum file size as needed
         ]);
 
         if ($request->hasFile('avatar')) {

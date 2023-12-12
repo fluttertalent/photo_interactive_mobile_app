@@ -420,29 +420,29 @@
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
                 },
-
                 data: {
                     "mark": mark,
                     "picture_id": picture_id,
                 }
                 ,
                 success: function(data) { 
-                    if(data = 'success'){
+                    if(data['data'] == 'success'){
                         toastr.success("Review of the post has been sent successfully!");
+                        $("#modalRelatedContent").modal('hide');
+                    }else if(data['data'] == 'unauthorized'){
+                        toastr.error("You should login before reviewing the post.");
                         $("#modalRelatedContent").modal('hide');
                     }
                 },
                 
                 error: function(xhr, status, error){
                     console.log(error);
-                    alert("Failed to save review data.");
+                    toastr.error("Failed to save review data.");
                 }
             });
 
         // Code to be executed when a row in the pictures table is clicked
     });
-
-
 });    
   </script>
 @endsection

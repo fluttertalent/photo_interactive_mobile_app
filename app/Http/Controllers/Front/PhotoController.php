@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Picture;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +16,24 @@ class PhotoController extends Controller{
         }
         return redirect()->route('login')
             ->withErrors([
-            'email' => 'Please login to access to upload the picture.',
+            'email' => 'Please login to access to see photos.',
+        ])->onlyInput('email');
+    }
+
+    public function delete($id){
+        if(Auth::check()){
+            try{
+                Picture::where('id', $id)->delete();   
+                session()->flash('msg','Photo deleted successfully.');
+                session()->flash('success','true');
+                return redirect()->back();
+            }catch(\Exception $e){
+                return response()->json(['error' => 'Can not delete Photo'], 404);
+            }
+        }
+        return redirect()->route('login')
+            ->withErrors([
+            'email' => 'Please login to access to delete the photo.',
         ])->onlyInput('email');
     }
 }           

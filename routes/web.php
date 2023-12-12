@@ -12,6 +12,7 @@ use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\PhotoController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,6 +76,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
     Route::resource('image', 'ImageController');
     
 });
+
+Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
 
 
 

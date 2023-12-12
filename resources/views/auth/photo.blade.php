@@ -24,69 +24,27 @@
 
 </main>
 </div>
-@endsection
-@section('scripts')
-    @parent
-
-    <!-- Sweet Alert 2 plugin -->
-    <script src="{{ asset('backend/js/sweetalert2.js') }}"></script>
-    <!--  Bootstrap Table Plugin    -->
-    <script src="{{ asset('backend/js/bootstrap-table.js') }}"></script>
-    <script type="text/javascript">
-
-        var delete_button = function(id){
-            swal({  
-                title: "Are you sure?",
-                text: "After you delete this picture, it will be never displayed again.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: "btn btn-info btn-fill",
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonClass: "btn btn-danger btn-fill",
-                closeOnConfirm: false,
-            },
-            function(){
-                $('form#delete-picture'+id).submit();
-            });
+<script>
+// toast section for success or failure to upload image, to update the profile, and to change the password
+    var message = "{{session('msg')}}";
+    var success = "{{session('success')}}";
+    console.log(success);
+    if(success == "true"){
+        toastr.options =
+        {
+            "closeButton" : true,
+            "progressBar" : true
         }
+        toastr.success("{{ session('msg') }}");
+    }
 
-        var $table = $('#bootstrap-table');
-        $().ready(function () {
-            $table.bootstrapTable({
-                toolbar: ".toolbar",
-                clickToSelect: true,
-                showRefresh: true,
-                search: true,
-                showToggle: true,
-                showColumns: true,
-                pagination: true,
-                searchAlign: 'left',
-                pageSize: 8,
-                clickToSelect: false,
-                pageList: [8, 10, 25, 50, 100],
-
-                formatShowingRows: function (pageFrom, pageTo, totalRows) {
-                    //do nothing here, we don't want to show the text "showing x of y from..."
-                },
-                formatRecordsPerPage: function (pageNumber) {
-                    return pageNumber + " rows visible";
-                },
-                icons: {
-                    refresh: 'fa fa-refresh',
-                    toggle: 'fa fa-th-list',
-                    columns: 'fa fa-columns',
-                    detailOpen: 'fa fa-plus-circle',
-                    detailClose: 'ti-close'
-                }
-            });
-
-            //activate the tooltips after the data table is initialized
-            $('[rel="tooltip"]').tooltip();
-
-            $(window).resize(function () {
-                $table.bootstrapTable('resetView');
-            });
+    var errors = <?php echo json_encode($errors->all())?>;
+    console.log(errors);
+    if(Array.isArray(errors)){
+        errors.forEach(function(item, index){
+            toastr.error(item);
         });
-
+    }
     </script>
 @endsection
+

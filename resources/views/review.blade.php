@@ -70,7 +70,7 @@
                     $("<li></li>").addClass("text-light list-inline-item").html("<i class='mdi mdi-map-marker'></i>" + (user.city || "Unknown")).appendTo(ul);
 
                     var favoriteIcon = $("<div></div>").addClass("favorite-icon").appendTo(userCardBody);
-                    $("<a></a>").attr("href", "#").html("<i class='mdi mdi-heart fs-18'></i>").appendTo(favoriteIcon);
+                    $("<a></a>").attr("href", "#").html("<i class='mdi mdi-thumb-up-outline'></i>").appendTo(favoriteIcon);
 
                     userBox.appendTo(userList);
                 });
@@ -108,8 +108,7 @@
                 $("<li></li>").addClass("text-light list-inline-item").html("<i class='mdi mdi-map-marker'></i>" + (user.city || "Unknown")).appendTo(ul);
 
                 var favoriteIcon = $("<div></div>").addClass("favorite-icon").appendTo(userCardBody);
-                $("<a></a>").attr("href", "#").html("<i class='mdi mdi-heart fs-18'></i>").appendTo(favoriteIcon);
-
+                $("<a></a>").attr("href", "#").html("<i class='mdi mdi-thumb-up-outline'></i>").appendTo(favoriteIcon);
                 userBox.appendTo(userList);
             });
         })

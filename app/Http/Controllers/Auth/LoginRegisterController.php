@@ -44,14 +44,28 @@ class LoginRegisterController extends Controller
         $request->validate([
             'name' => 'required|string|max:250',
             'email' => 'required|email|max:250|unique:users',
-            'password' => 'required|min:8|confirmed'
+            'password' => 'required|min:8|confirmed',
+            'city' => 'required',
+            'phone' => 'required',
+            'title' => 'required',
+            'bio' => 'required',
+            'birthday' => 'required'
         ]);
 
+       
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avatar'=> 'avatars/empty.jpeg'    
+            'avatar'=> 'avatars/empty.jpeg',
+            'city' => $request->city,
+            'phone' => $request->phone,
+            'title' => $request->title,
+            'bio' => $request->bio,
+            'birthday' => $request->birthday,
+            'website' => $request->website,
+            'degree' => $request->degree,
+            'role' => 'user'
         ]);
 
         $credentials = $request->only('email', 'password');
@@ -103,10 +117,7 @@ class LoginRegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function dashboard()
-    {
-
-        if(Auth::check())
-        {
+    {        
             $pictures = Picture::all();
             $pictures = DB::select("
                 SELECT pictures.*, users.name as userName
@@ -115,12 +126,7 @@ class LoginRegisterController extends Controller
                 ORDER BY pictures.date DESC, pictures.time DESC 
             ");
             return view('auth.dashboard')->with('pictures', $pictures);
-        }
         
-        return redirect()->route('login')
-            ->withErrors([
-            'email' => 'Please login to access the dashboard.',
-        ])->onlyInput('email');
     } 
 
     

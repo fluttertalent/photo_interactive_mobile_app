@@ -33,7 +33,8 @@ class DashboardController extends Controller{
             (6371 * acos(cos(radians($lat)) * cos(radians(pictures.lat)) * cos(radians(pictures.lng) - radians($lng)) + sin(radians($lat)) * sin(radians(pictures.lat)))) AS distance
             FROM pictures
             LEFT JOIN users ON users.id = pictures.user_id            
-            ORDER BY pictures.date DESC, pictures.time DESC 
+            ORDER BY pictures.date DESC, pictures.time DESC
+            LIMIT 10 
         ");
 
         return response()->json(['pictures'=> $pictures]);

@@ -24,7 +24,12 @@ class User extends Authenticatable
         'avatar',
         'title',
         'bio',
-        'role'
+        'role',
+        'phone',
+        'city',
+        'website',
+        'birthday',
+        'degree'
     ];
 
     /**
