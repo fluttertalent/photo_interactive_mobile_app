@@ -6,15 +6,15 @@
         <div class="row">
             <div class="col-lg-12">                
                 <div style="margin-top:8em" class="candidate-list">
-                <div style="text-align: center; ">
-                    <button id="week" class="review-button">WEEK</button>
-                    <button id="month" class="review-button">MONTH</button>
-                    <button id="year" class="review-button">YEAR</button>
-                    <button id="total" class="review-button active">TOTAL</button>
-                </div>
-                <div id="userList"></div>                
-                                    
-                </div>
+                    <div style="text-align: center; ">
+                        <button id="week" class="review-button">WEEK</button>
+                        <button id="month" class="review-button">MONTH</button>
+                        <button id="year" class="review-button">YEAR</button>
+                        <button id="total" class="review-button active">TOTAL</button>
+                    </div>
+                    <div id="userList"></div>                
+                                        
+                    </div>
             </div>
         </div>        
         @else
@@ -70,9 +70,9 @@
                     $("<li></li>").addClass("text-light list-inline-item").html("<i class='mdi mdi-map-marker'></i>" + (user.city || "Unknown")).appendTo(ul);
 
                     var favoriteIcon = $("<div></div>").addClass("favorite-icon").appendTo(userCardBody);
-                    $("<a></a>").attr("href", "#").html("<i class='mdi mdi-thumb-up-outline'></i>").appendTo(favoriteIcon);
-
-                    userBox.appendTo(userList);
+                    var anchorElement = $("<a style='float:right'></a>").attr("href", "/getReivewPictures/"+user.id).html("View Pictures").appendTo(favoriteIcon); 
+                  
+                    userBox.appendTo(userList); 
                 });
             })
             .fail(function(xhr, status, error) {
@@ -86,8 +86,10 @@
 
             // Generate and display user data
             var userList = $("#userList");
+            userList.empty();
 
             $.each(response.users, function(index, user) {
+
                 var userBox = $("<div></div>").addClass("candidate-list-box card mt-4").css("background", "#212529");
                 var userCardBody = $("<div></div>").addClass("p-4 card-body").appendTo(userBox);
                 var row = $("<div></div>").addClass("align-items-center row").appendTo(userCardBody);
@@ -108,7 +110,8 @@
                 $("<li></li>").addClass("text-light list-inline-item").html("<i class='mdi mdi-map-marker'></i>" + (user.city || "Unknown")).appendTo(ul);
 
                 var favoriteIcon = $("<div></div>").addClass("favorite-icon").appendTo(userCardBody);
-                $("<a></a>").attr("href", "#").html("<i class='mdi mdi-thumb-up-outline'></i>").appendTo(favoriteIcon);
+                $("<a style='float:right'></a>").attr("href", "/getReivewPictures/"+user.id).html("View Pictures").appendTo(favoriteIcon);
+                
                 userBox.appendTo(userList);
             });
         })

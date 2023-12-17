@@ -60,6 +60,7 @@ Route::get('/statistics', [ReviewController::class, 'rankingView'])->name('revie
 Route::get('/ranking', [ReviewController::class, 'ranking']);
 Route::get('/photos', [PhotoController::class, 'index']);
 Route::get('/photos/{id}', [PhotoController::class, 'delete']);
+Route::get('/comments', [ReviewController::class, 'getComments']);
 
 // Routes for Admin
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
@@ -72,13 +73,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
     Route::put('user/{id}/profile', 'UserController@update_profile');
     Route::get('user/{id}/setting', 'UserController@setting');
     Route::put('user/{id}/setting', 'UserController@update_setting');
-
     Route::resource('image', 'ImageController');
     
 });
 
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
-
+Route::post('/register', [ContactController::class, 'suppportContact'])->name('contact.support');
+Route::get('/getReivewPictures/{id}', [ReviewController::class, 'getReviewPictures'])->name('review.pictures');
 
 
 

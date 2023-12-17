@@ -1,5 +1,16 @@
 @extends('auth.layouts')
+<style>
 
+    input::placeholder {
+      color: #ced4da !important;
+      opacity: 1;
+    }
+    textarea::placeholder {
+      color: #ced4da !important;
+      opacity: 1;
+    }
+
+</style>
 @section('content')
 
 <div class="row justify-content-center mt-5">
@@ -13,8 +24,7 @@
                             <input type="text" class="form-control " id="name" name="name" value="{{ old('name') }}">
                             @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
-                            @endif
-                        
+                            @endif                        
                     </div>
                     <div class="form-group">
                         <label for="email" class="col-form-label text-md-end text-start">Email Address</label>                     
@@ -57,10 +67,7 @@
                         @if ($errors->has('website'))
                             <span class="text-danger">{{ $errors->first('website') }}</span>
                         @endif
-                    </div>
-
-                    
-
+                    </div>                  
                     <div class="form-group">
                         <label for="degree" class="col-form-label text-md-end text-start">Degree</label>
                         <input type="text" class="form-control" id="degree" name="degree" value="{{ old('degree') }}">
@@ -83,8 +90,7 @@
                         @if ($errors->has('birthday'))
                             <span class="text-danger">{{ $errors->first('birthday') }}</span>
                         @endif
-                    </div>
-                    
+                    </div>                    
                 </div> 
                 <div class="form-group">
                         <label for="bio" class="col-form-label text-md-end text-start">Bio</label>
@@ -95,9 +101,49 @@
                 </div>  
             </div>                                
             <div class="text-center"><button type="submit">Register</button></div>                
-        </form>
-        
+        </form>   
+    <div class="page-header d-flex align-items-center">
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+                <h2>Support Contact</h2>
+            </div>
+            </div>
+        </div>
+    </div>  
+        <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">      
+        <div class="row justify-content-center mt-4">
+          <div class="col-lg-9">
+            <form action="{{ route('contact.support')}}" method="post" role="form" class="php-email-form">
+              @csrf
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>              
+              <div class="my-3">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div><!-- End Contact Form -->
+        </div>
+      </div>
+    </section><!-- End Contact Section -->   
     </div>
 </div>
-    
+<script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
 @endsection

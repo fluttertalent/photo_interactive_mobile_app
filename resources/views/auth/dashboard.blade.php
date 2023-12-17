@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($pictures as $picture)
+                <!-- @forelse ($pictures as $picture)
                     <tr id="{{$picture->id}}" lat="{{$picture->lat}}" lng="{{$picture->lng}}">
                         <td>{{ $picture->userName }}</td>
                         <td>{{ $picture->date }}</td>
@@ -31,7 +31,7 @@
                         <td style="height: 50px"></td>
                     </tr>
                     @endfor
-                @endforelse
+                @endforelse -->
             </tbody>
         </table>
     </div>
@@ -46,7 +46,7 @@
             <div class="modal-content">
                 <!--Header-->
                 <div  style="background:grey" class="modal-header">
-                    <p id="photoItem" style="color:black; font-size: 20px;" class="heading">Related article</p>
+                    <p id="photoItem" style="color:black; font-size: 20px;" class="heading">Photos</p>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="white-text">&times;</span>
                     </button>
@@ -61,10 +61,19 @@
                         </div>
                         <div class="col-7">
                         <p class="text-center">
-                            <strong>Rate the post</strong>
+                            <strong id="photoItem">Rate the post</strong>
                         </p>
                         <div class="container">                    
                             <input id="rate" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+                        </div>
+                        <p class="text-center">
+                            <strong id="photoItem">Comment</strong>
+                        </p>
+                        <div class="container">                    
+                            <textarea class="form-control" id="comment" name="comment">{{ old('comment') }}</textarea>
+                            @if ($errors->has('comment'))
+                                <span class="text-danger">{{ $errors->first('comment') }}</span>
+                            @endif
                         </div>
                         </div>  
                     </div>
@@ -80,6 +89,26 @@
         </div>
     </div>
     <!--Modal: modalRelatedContent-->
+
+
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div style="background:grey" class="modal-header">
+                    <h5 class="modal-title" style="color:black; font-size: 20px;" id="imageModalLabel">Images</h5>
+                    <button type="button" class="images-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background:grey; display: flex;    flex-wrap: wrap;    justify-content: center;    align-items: center;" id="imageModalBody">
+                    <!-- Images will be added dynamically here -->
+                </div>
+                <div style="background:grey" class="modal-footer">
+                    <button type="button" class="btn btn-secondary images-close"  data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section id="about" class="about mt-5">
         <a href="#" id="userLink">
@@ -147,10 +176,11 @@
 <script>
     
     let map;
+    var markerData = <?php echo json_encode($pictures); ?>;
 
     function initMap() {
     
-        var markerData = <?php echo json_encode($pictures); ?>;
+        
 
         map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 35.829290, lng: -75.823490 },
@@ -175,7 +205,8 @@
             var marker = new google.maps.Marker({
                 position: { lat: parseFloat(markerData[i].lat), lng: parseFloat(markerData[i].lng)},
                 map: map,
-                icon: icon
+                icon: icon,
+                id:markerData[i].id
             });     
 
             markers.push(marker);          
@@ -228,10 +259,49 @@
 
         }      
 
-        // Create a new MarkerClusterer instance
-        var markerCluster = new MarkerClusterer(map, markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-        });
+            // Create a new MarkerClusterer instance
+            var markerCluster = new MarkerClusterer(map, markers, {
+                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+            });
+
+            
+
+            function showDialogWithImages(markers) {
+
+                // Assuming you are using a simple Bootstrap modal for displaying the images
+                var modalBody = document.getElementById('imageModalBody');
+
+                // Clear existing images
+                modalBody.innerHTML = '';
+
+                // Add images to the modal
+                markers.forEach(function(marker) {
+
+                    var img = document.createElement('img');
+                    img.src = marker.getIcon().url;
+                    img.classList.add('img-fluid', 'mb-2');
+                    img.width = 300; // Set the width of the image
+                    img.height = 200; // Set the height of the image
+                    img.id = "img- "+marker['id'];
+                    modalBody.appendChild(img);
+
+                });
+
+                // Show the modal
+                $('#imageModal').modal('show');
+            }
+
+            google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+                // your code here
+                console.log(map.getZoom());
+                if (map.getZoom() === 22) {
+                    var markers = cluster.getMarkers();
+                    // Assuming you have a function to retrieve image URLs from markers
+                    // Assuming you have a function to display a dialog with images
+                    showDialogWithImages(markers);
+                }
+            });
+            
 
         // Set the minimum cluster size to 2     
     
@@ -381,11 +451,10 @@
             const pos = {
                 lat: parseFloat(lat),
                 lng: parseFloat(lng),
-                zoom: 20,
-            };
-            
+                zoom: 22,
+            };            
              
-            const newZoom = 20;
+            const newZoom = 22;
 
             // Update the map options with the new center and zoom level
             map.setOptions({
@@ -394,7 +463,7 @@
             });
 
         },
-        error: function(xhr, status, error) {
+        error: function(xhr, status, error) {   
             console.error(error);
             alert("Failed to retrieve user data.");
         }
@@ -409,10 +478,76 @@
             $("#modalRelatedContent").modal('hide');
         });
 
+        
+        $('.images-close').click(function() {           
+            $("#imageModal").modal('hide');
+        });
+
+       $('body').on('click','[id^="img-"]',
+            function() {
+                // Your click event handling code here
+                var id =  $(this).attr('id').split('-')[1];
+                console.log(id);
+                var marker = {};
+                for(var i =0;i<markerData.length;i++){
+                    if(markerData[i].id == id)
+                    {
+                        marker = markerData[i];
+                        break;
+                    }
+                }
+                console.log(marker);
+                $('#photoItem').html(marker.item);
+                $('#imgSource').attr('src',  "{{asset('storage/')}}"+ "/" + marker.url);
+                $('#imageModal').modal("hide");
+                $("#modalRelatedContent").modal("show");
+                $("#modalRelatedContent").attr('pictureId', marker.id);
+                $('#imgDate').html(marker.date);
+                // Handle marker click event here
+                $.ajax({
+                    url: "/pictures/" + marker.id,
+                    type: "GET",
+                    success: function(data) {
+                        
+                        let imageUrl = "{{asset('storage/')}}"+ "/" + data['user'].avatar;
+                        let name = data['user'].name;
+                        let email = data['user'].email;
+                        let title = data['user'].title;
+                        let bio =  data['user'].bio;
+
+                        // Set the values of the input fields and image preview
+                        $("#avatarPreview").attr("src", imageUrl);
+                        $("#userName").text(name);
+                        $("#userEmail").text(email);
+                        $("#userTitle").text(title);
+                        $('#userBio').text(bio);
+                        $('#userLink').attr('href', '/welcome/' + data['user'].id);
+                        var swiperWrapper = $('.swiper-wrapper');
+                        swiperWrapper.empty();
+
+                        $.each(data['pictures'], function(index, picture) {
+                            var swiperSlide = $('<div>').addClass('swiper-slide');
+                            var testimonialItem = $('<div>').addClass('testimonial-item');
+                            var image = $('<img>').attr('src', "{{asset('storage/')}}"+ "/" +picture.url);
+                            testimonialItem.append(image);
+                            swiperSlide.append(testimonialItem);
+                            swiperWrapper.append(swiperSlide);
+                        });
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert("Failed to retrieve user data.");
+                    }
+                });
+        });
+
+
         $('#sendReview').click(function(){    
 
             const mark = $('#rate').val();
             var picture_id = $('#modalRelatedContent').attr('pictureId');
+            var comment = $('#comment').val();
 
             $.ajax({
                 url: "/reviews",
@@ -423,6 +558,7 @@
                 data: {
                     "mark": mark,
                     "picture_id": picture_id,
+                    "comment" : comment
                 }
                 ,
                 success: function(data) { 

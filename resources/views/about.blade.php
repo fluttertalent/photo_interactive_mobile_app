@@ -73,7 +73,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
             <h2>About</h2>
-            <a class="cta-btn" href="contact.html">Available for hire</a>
+            <a class="cta-btn" href="/contact/{{$user->id}}">Available for hire</a>
           </div>
         </div>
       </div>

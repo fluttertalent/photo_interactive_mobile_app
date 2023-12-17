@@ -59,8 +59,57 @@
                                             <span class="text-danger">{{ $errors->first('bio') }}</span>
                                     @endif                                
                                 </div> 
-                            </div>                      
-                            <button type="submit" class="btn btn-primary">Save</button>
+                                
+                            </div>   
+                            <div class="row">
+                                <div class="col-sm-6">                                    
+                                    <div class="form-group">
+                                        <label for="city" class="col-form-label text-md-end text-start">City</label>
+                                        <input type="text" class="form-control" id="city" name="city" value="{{ old('city', $user->city) }}">
+                                        @if ($errors->has('city'))
+                                            <span class="text-danger">{{ $errors->first('city') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone" class="col-form-label text-md-end text-start">Phone</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
+                                        @if ($errors->has('phone'))
+                                            <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="website" class="col-form-label text-md-end text-start">Website</label>
+                                        <input type="text" class="form-control" id="website" name="website" value="{{ old('website', $user->website) }}">
+                                        @if ($errors->has('website'))
+                                            <span class="text-danger">{{ $errors->first('website') }}</span>
+                                        @endif
+                                    </div>          
+                                </div>
+                                <div class="col-sm-6">                                             
+                                    <div class="form-group">
+                                        <label for="degree" class="col-form-label text-md-end text-start">Degree</label>
+                                        <input type="text" class="form-control" id="degree" name="degree" value="{{ old('degree', $user->degree) }}">
+                                        @if ($errors->has('degree'))
+                                            <span class="text-danger">{{ $errors->first('degree') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title" class="col-form-label text-md-end text-start">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $user->title) }}">
+                                        @if ($errors->has('title'))
+                                            <span class="text-danger">{{ $errors->first('title') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthday" class="col-form-label text-md-end text-start">Birthday</label>
+                                        <input type="date" class="form-control" id="birthday" name="birthday" value="{{ old('birthday', $user->birthday) }}">
+                                        @if ($errors->has('birthday'))
+                                            <span class="text-danger">{{ $errors->first('birthday') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>                   
+                            <button type="submit" class="mt-5 btn btn-primary">Save</button>
                         </form>                    
                     </div>
                     <div class="mb-4 col-md-6">

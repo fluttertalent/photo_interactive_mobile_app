@@ -28,6 +28,7 @@ class LoginRegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function register()
     {
         return view('auth.register');
@@ -123,7 +124,7 @@ class LoginRegisterController extends Controller
                 SELECT pictures.*, users.name as userName
                 FROM pictures                
                 LEFT JOIN users ON users.id = pictures.user_id
-                ORDER BY pictures.date DESC, pictures.time DESC 
+                ORDER BY pictures.date DESC, pictures.time DESC		
             ");
             return view('auth.dashboard')->with('pictures', $pictures);
         

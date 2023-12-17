@@ -23,13 +23,25 @@ class ProfileController extends Controller
         
         $request->validate([
             'name' => 'required|string|max:250',
-            'email' => 'required|email|max:250',            
+            'email' => 'required|email|max:250',
+            'city' => 'required',
+            'phone' => 'required',
+            'title' => 'required',
+            'bio' => 'required',
+            'birthday' => 'required',
+            'website' => 'required',
         ]);
+
         
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->title = $request->input('title');
-        $user->bio = $request->input('bio');        
+        $user->bio = $request->input('bio');    
+        $user->birthday = $request->input('birthday');
+        $user->city = $request->input('city');
+        $user->phone = $request->input('phone');
+        $user->website = $request->input('website');
+        $user->degree = $request->input('degree');
 
         $user->save();
         session()->flash('msg', 'Profile updated successfully!');

@@ -38,4 +38,21 @@ class ContactController extends Controller{
 
         return response('OK');
     }
+
+    public function suppportContact(Request $request){
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
+
+        // Process form data here
+
+        Mail::to('support@nature-spy.com')->send(new ContactFormMail($validatedData));           
+	      
+
+        return response('OK');
+    }
 }

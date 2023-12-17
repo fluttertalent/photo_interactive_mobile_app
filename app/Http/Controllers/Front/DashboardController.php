@@ -34,8 +34,10 @@ class DashboardController extends Controller{
             FROM pictures
             LEFT JOIN users ON users.id = pictures.user_id            
             ORDER BY pictures.date DESC, pictures.time DESC
-            LIMIT 10 
+            LIMIT 2 
         ");
+
+        $pictures = [];
 
         return response()->json(['pictures'=> $pictures]);
     }
