@@ -49,6 +49,16 @@ class ReviewController extends Controller{
         ])->onlyInput('email');
     }
 
+    public function picRankingView(Request $request){
+        if(Auth::check()){ 
+            return view('picrankingview');
+        }
+        return redirect()->route('login')
+            ->withErrors([
+            'email' => 'Please login to see the ranking of pictures.',
+        ])->onlyInput('email');
+    }
+
     public function ranking(Request $request){
         if(Auth::check()){
             $method = $request->query('method');
@@ -191,6 +201,80 @@ class ReviewController extends Controller{
         return redirect()->route('login')
             ->withErrors([
             'email' => 'Please login to see the comments of the picture.',
+        ])->onlyInput('email');
+    }
+
+    public function picRanking(Request $request){
+        if(Auth::check()){
+            $method = $request->query('method');            
+            $pictures = [];
+            if($method == 'week'){
+                $pictures = DB::select("
+                    SELECT *,
+                    (review_count * 0.6) + (mark * 0.4) AS score
+                    FROM (
+                        SELECT pictures.*,
+                        COUNT(reviews.id) AS review_count, ROUND(AVG(reviews.mark), 1) AS mark
+                        FROM pictures
+                        LEFT JOIN reviews
+                        ON pictures.id = reviews.picture_id
+                        WHERE reviews.date >= NOW() - INTERVAL 1 WEEK 
+                        GROUP BY pictures.id
+                    ) AS picture_reviews
+                    ORDER BY score DESC;
+                ");
+            }else if($method == 'total'){
+                $pictures = DB::select("
+                    SELECT *,
+                    (review_count * 0.6) + (mark * 0.4) AS score
+                    FROM (
+                        SELECT pictures.*,
+                        COUNT(reviews.id) AS review_count, ROUND(AVG(reviews.mark), 1) AS mark
+                        FROM pictures
+                        LEFT JOIN reviews
+                        ON pictures.id = reviews.picture_id
+                        GROUP BY pictures.id
+                    ) AS picture_reviews
+                    ORDER BY score DESC;
+                ");
+            }else if($method == 'month'){
+                $pictures = DB::select("
+                    SELECT *,
+                    (review_count * 0.6) + (mark * 0.4) AS score
+                    FROM (
+                        SELECT pictures.*,
+                        COUNT(reviews.id) AS review_count, ROUND(AVG(reviews.mark), 1) AS mark
+                        FROM pictures
+                        LEFT JOIN reviews
+                        ON pictures.id = reviews.picture_id
+                        WHERE reviews.date >= NOW() - INTERVAL 1 MONTH 
+                        GROUP BY pictures.id
+                    ) AS picture_reviews
+                    ORDER BY score DESC;
+                ");
+            }else if($method == 'year'){
+                $pictures = DB::select("
+                    SELECT *,
+                    (review_count * 0.6) + (mark * 0.4) AS score
+                    FROM (
+                        SELECT pictures.*,
+                        COUNT(reviews.id) AS review_count, ROUND(AVG(reviews.mark), 1) AS mark
+                        FROM pictures
+                        LEFT JOIN reviews
+                        ON pictures.id = reviews.picture_id
+                        WHERE reviews.date >= NOW() - INTERVAL 1 YEAR 
+                        GROUP BY pictures.id
+                    ) AS picture_reviews
+                    ORDER BY score DESC;
+                ");
+            }
+            ;
+
+            return response()->json(['pictures' => $pictures]);
+        }
+        return redirect()->route('login')
+            ->withErrors([
+            'email' => 'Please login to access to photo page.',
         ])->onlyInput('email');
     }
 }

@@ -29,6 +29,14 @@
 
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/locales/LANG.js"></script>
 
 
                 <!-- Styles -->
@@ -92,7 +100,7 @@
         </section><!-- End Hero Section -->
 
         <main id="main" data-aos="fade" data-aos-delay="1500">
-
+            @csrf
             <!-- ======= Gallery Section ======= -->
             <section id="gallery" class="gallery">
             <div class="container-fluid">
@@ -104,18 +112,70 @@
                             <img src="{{asset('storage/')}}/{{$picture->url}}" alt="">
                             <div class="review-info">
                             <span class="review-number"><i class='mdi mdi-star align-middle'></i>{{$picture->review_count}}Reviews</span>
-                            <span class="review-mark">{{$picture->average_mark}}</span>
+                            <span class="review-mark">{{$picture->average_mark}}</span>                            
                             </div>
                         </div>
                         <div class="gallery-links d-flex align-items-center justify-content-center">
                             <a href="{{asset('storage/')}}/{{$picture->url}}" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                        </div>
+                            <a type="button" style="color:white; font-size: 25px; position: absolute;  top: 10px;  right: 10px;"  picture="{{$picture->id}}" class="ratePost details-link">Rate</a>
+                        </div>                
                     </div>
                 </div><!-- End Gallery Item -->
                 @endforeach
                 </div>
 
             </div>
+            <!--Modal: modalRelatedContent-->
+            <div class="modal fade right" id="modalRelatedContent" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" pictureId="">
+                <!--Content-->
+                <div  class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div  style="background:grey" class="modal-header">
+                            <p id="photoItem" style="color:black; font-size: 20px;" class="heading">Photos</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+                        <!--Body-->
+                        <div style="background:grey" class="modal-body">
+                            <div class="row">
+                                <div class="col-5">
+                                    <img id="imgSource" style="border-radius:5%" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(55).webp"
+                                        class="img-fluid" alt="">
+                                    <p id="imgDate"></p>
+                                </div>
+                                <div class="col-7">
+                                <p class="text-center">
+                                    <strong >Rate the post</strong>
+                                </p>
+                                <div class="container">                    
+                                    <input id="rate" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+                                </div>
+                                <p class="text-center">
+                                    <strong >Comment</strong>
+                                </p>
+                                <div class="container">                    
+                                    <textarea class="form-control" id="comment" name="comment">{{ old('comment') }}</textarea>
+                                    @if ($errors->has('comment'))
+                                        <span class="text-danger">{{ $errors->first('comment') }}</span>
+                                    @endif
+                                </div>
+                                </div>  
+                            </div>
+                        </div>
+                        <div style="background:grey" class="modal-footer justify-content-center">
+                        <a type="button" id="sendReview" style="background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;" class=" waves-effect waves-light">Send
+                            <i class="fas fa-paper-plane ml-1"></i>
+                        </a>
+                        <a type="button" style="background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px;" class="close" data-dismiss="modal">Cancel</a>
+                        </div>
+                    </div>
+                <!--/.Content-->
+                </div>
+            </div>
+            <!--Modal: modalRelatedContent-->
             </section><!-- End Gallery Section -->
 
         </main><!-- End #main -->
@@ -141,5 +201,63 @@
 
         <!-- Template Main JS File -->
         <script src="{{asset('assets/js/main.js')}}"></script>
+        <script>
+            var markData = <?php echo json_encode($pictures)?>;
+            $(document).ready(function() {
+            
+            $('.close').click(function() {           
+                $("#modalRelatedContent").modal('hide');
+            });
+
+            
+            $('.ratePost').click(function(){
+                console.log('rrrr');
+                var pic_id = $(this).attr("picture");
+                var picture = markData.find(item => item.id === pic_id);
+                $('#photoItem').html(picture.item);
+                $('#imgSource').attr('src',  "{{asset('storage/')}}"+ "/" + picture.url);
+                $("#modalRelatedContent").modal("show");
+                $("#modalRelatedContent").attr('pictureId', pic_id);
+                $('#imgDate').html(picture.date);
+            });
+
+            $('#sendReview').click(function(){    
+
+                const mark = $('#rate').val();
+                var picture_id = $('#modalRelatedContent').attr('pictureId');
+                var comment = $('#comment').val();
+
+                $.ajax({
+                    url: "/reviews",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
+                    },
+                    data: {
+                        "mark": mark,
+                        "picture_id": picture_id,
+                        "comment" : comment
+                    }
+                    ,
+                    success: function(data) { 
+                        if(data['data'] == 'success'){
+                            toastr.success("Review of the post has been sent successfully!");
+                            $("#modalRelatedContent").modal('hide');
+                        }else if(data['data'] == 'unauthorized'){
+                            toastr.error("You should login before reviewing the post.");
+                            $("#modalRelatedContent").modal('hide');
+                        }
+                    },
+                    
+                    error: function(xhr, status, error){
+                        console.log(error);
+                        toastr.error("Failed to save review data.");
+                    }
+                });
+
+                // Code to be executed when a row in the pictures table is clicked
+                });
+            });
+        </script>
     </body>
 </html>

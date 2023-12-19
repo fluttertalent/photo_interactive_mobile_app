@@ -33,12 +33,12 @@
                 </div>                        
             </div>
          
-                <div style="margin-left:20px; margin-right:20px" class="mt-3 mb-3 row d-flex justify-content-center">
-                    <div class="card shadow-0" id="card-{{$picture->id}}" style="border-color: #212529; display:none;background-color: #212529;">
-                        <div id="comments-{{$picture->id}}" class="card-body p-4" style="border-color: #212529; background-color: #212529;">
-                            
-                        </div>
-                </div>
+            <div style="margin-left:20px; margin-right:20px" class="mt-3 mb-3 row d-flex justify-content-center">
+                <div class="card shadow-0" id="card-{{$picture->id}}" style="border-color: #212529; display:none;background-color: #212529;">
+                    <div id="comments-{{$picture->id}}" class="card-body p-4" style="border-color: #212529; background-color: #212529;">
+                        
+                    </div>
+            </div>
             </div>            
         @endforeach
         </div>
@@ -65,7 +65,7 @@
                             <div class="card-body" style="background-color: #212529;">          
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
-                                        <img src="{{asset('storage/')}}/${comment['avatar']}" alt="avatar" width="50" height="50" />
+                                        <img src="{{asset('storage/')}}/${comment['avatar']}" alt="avatar" style="height:50px; width:50px" />
                                         <p style="color:white" class="small mb-0 ms-2">${comment['name']}</p>
                                         <div style="margin-left:20px;   ">
                                             <p style="color:green">${comment['mark']}-Review</p>

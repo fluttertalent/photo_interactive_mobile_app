@@ -6,7 +6,7 @@
     @csrf    
     <div class="col-sm-6" style="margin-top: 50px;">
     <table id="pictures-table" class="table table-dark  php-email-form">
-            <thead class="thead-dark" style="height:50px">
+            <thead class="thead-dark">
                 <tr>
                     <th>UserName</th>
                     <th>Date</th>
@@ -55,7 +55,7 @@
                 <div style="background:grey" class="modal-body">
                     <div class="row">
                         <div class="col-5">
-                            <img id="imgSource" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(55).webp"
+                            <img id="imgSource" style="border-radius:5%" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(55).webp"
                                 class="img-fluid" alt="">
                             <p id="imgDate"></p>
                         </div>
@@ -199,6 +199,7 @@
 
             let icon = {
                 url : "{{asset('storage/')}}"+ "/" + markerData[i].url + '#custom_marker',
+                rUrl: "{{asset('storage/')}}"+ "/" + markerData[i].url,
                 scaledSize : new google.maps.Size(50, 50),
             }
 
@@ -262,9 +263,7 @@
             // Create a new MarkerClusterer instance
             var markerCluster = new MarkerClusterer(map, markers, {
                 imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-            });
-
-            
+            });            
 
             function showDialogWithImages(markers) {
 
@@ -275,15 +274,16 @@
                 modalBody.innerHTML = '';
 
                 // Add images to the modal
-                markers.forEach(function(marker) {
+                markers.forEach(function(marker){
 
                     var img = document.createElement('img');
-                    img.src = marker.getIcon().url;
-                    img.classList.add('img-fluid', 'mb-2');
-                    img.width = 300; // Set the width of the image
-                    img.height = 200; // Set the height of the image
+                    img.src = marker.getIcon().rUrl;                    
                     img.id = "img- "+marker['id'];
-                    modalBody.appendChild(img);
+                    img.style = "max-width: 300px ;height: auto; border-radius:5%; margin-top:10px"
+                    var div = document.createElement('div');
+                    div.classList.add("image-container");                    
+                    div.appendChild(img);
+                    modalBody.appendChild(div);
 
                 });
 
@@ -577,8 +577,8 @@
                 }
             });
 
-        // Code to be executed when a row in the pictures table is clicked
-    });
+            // Code to be executed when a row in the pictures table is clicked
+        });
 });    
   </script>
 @endsection

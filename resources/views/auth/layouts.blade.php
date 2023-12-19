@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NatureSpy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script> -->
     
-    <style>
+    <style>        
         .selected {
             background-color: green !important;
         }
@@ -163,8 +163,13 @@
 
                     <li><a href="{{url('/photos')}}" style="font-size:1.5em">My Photos</a></li>
 
-                    <li><a href="{{url('/statistics')}}" style="font-size:1.5em">Statistics</a></li>
-                   
+                    <li class="dropdown"><a href="#" style="font-size:1.5em"> Statistics</a>
+                        <ul>
+                            <li><a href="{{url('/statistics')}}" style="font-size:1.5em">MOST ACTIVE USERS</a></li>
+                            <li><a href="{{url('/picRankingView')}}" style="font-size:1.5em">BEST PICTURES</a></li>
+                        </ul>
+                    </li>                    
+                        
                     @guest
                     <li>
                         <a class="{{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}" style="font-size:1.5em">Login</a>

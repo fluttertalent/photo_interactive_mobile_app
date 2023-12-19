@@ -7,6 +7,7 @@
             <div class="col-lg-12">                
                 <div style="margin-top:8em" class="candidate-list">
                     <div style="text-align: center; ">
+                        <p>MOST ACTIVE USERS</p>
                         <button id="week" class="review-button">WEEK</button>
                         <button id="month" class="review-button">MONTH</button>
                         <button id="year" class="review-button">YEAR</button>
@@ -57,7 +58,7 @@
                     var col1 = $("<div></div>").addClass("col-auto").appendTo(row);
                     var candidateListImages = $("<div></div>").addClass("candidate-list-images").appendTo(col1);
                     $("<a></a>").attr("href", "#").appendTo(candidateListImages);
-                    $("<img>").attr("src", "storage/" + user.avatar).addClass("avatar-md img-thumbnail rounded-circle").css("height", "50px").appendTo(candidateListImages);
+                    $("<img>").attr("src", "storage/" + user.avatar).addClass("avatar-md img-thumbnail rounded-circle").css({"height":"70px", "width":"70px"}).appendTo(candidateListImages);
 
                     var col2 = $("<div></div>").addClass("col-lg-5").appendTo(row);
                     var candidateListContent = $("<div></div>").addClass("candidate-list-content mt-3 mt-lg-0").appendTo(col2);
@@ -97,7 +98,8 @@
                 var col1 = $("<div></div>").addClass("col-auto").appendTo(row);
                 var candidateListImages = $("<div></div>").addClass("candidate-list-images").appendTo(col1);
                 $("<a></a>").attr("href", "#").appendTo(candidateListImages);
-                $("<img>").attr("src", "storage/" + user.avatar).addClass("avatar-md img-thumbnail rounded-circle").css("height", "50px").appendTo(candidateListImages);
+                $("<img>").attr("src", "storage/" + user.avatar).addClass("avatar-md img-thumbnail rounded-circle").css({"height": "70px",
+                    "width": "70px" }).appendTo(candidateListImages);
 
                 var col2 = $("<div></div>").addClass("col-lg-5").appendTo(row);
                 var candidateListContent = $("<div></div>").addClass("candidate-list-content mt-3 mt-lg-0").appendTo(col2);

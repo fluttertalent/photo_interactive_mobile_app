@@ -15,7 +15,7 @@
 
 <div class="row justify-content-center mt-5">
     <div style="margin-top: 100px;">        
-        <form action="{{ route('store') }}" method="post" class="php-email-form">
+        <form action="{{ route('store') }}" method="post" id = "non-php-email-form" class="php-email-form">
             @csrf
             <div class="row">
                 <div class="col-sm-6">
@@ -100,7 +100,12 @@
                         @endif
                 </div>  
             </div>                                
-            <div class="text-center"><button type="submit">Register</button></div>                
+            <div class="text-center"><button type="submit">Register</button></div>
+            <div class="my-3">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+            </div>                
         </form>   
     <div class="page-header d-flex align-items-center">
         <div class="container position-relative">
