@@ -2,40 +2,42 @@
 
 @section('content')
 
-<div class="row justify-content-center mt-5 ">
+<div class="row justify-content-center mt-5 " >
     @csrf    
-    <div class="col-sm-6" style="margin-top: 50px;">
-    <table id="pictures-table" class="table table-dark  php-email-form">
-            <thead class="thead-dark">
-                <tr>
-                    <th>UserName</th>
-                    <th>Date</th>
-                    <th>Item</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- @forelse ($pictures as $picture)
-                    <tr id="{{$picture->id}}" lat="{{$picture->lat}}" lng="{{$picture->lng}}">
-                        <td>{{ $picture->userName }}</td>
-                        <td>{{ $picture->date }}</td>
-                        <td>{{ $picture->item }}</td>
-                        <td>{{ $picture->time }}</td>
-                    </tr>
-                @empty
-                    @for ($i = 0; $i < 10; $i++)
+    <div class="col-6" style="margin-top: 70px;">
+        <div style="overflow-x:auto;">
+            <table id="pictures-table" class="table table-dark php-email-form" >
+                <thead class="thead-dark">
                     <tr>
-                        <td style="height: 50px"></td>
-                        <td style="height: 50px"></td>
-                        <td style="height: 50px"></td>
-                        <td style="height: 50px"></td>
+                        <th>UserName</th>
+                        <th>Date</th>
+                        <th>Item</th>
+                        <th>Time</th>
                     </tr>
-                    @endfor
-                @endforelse -->
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <!-- @forelse ($pictures as $picture)
+                        <tr id="{{$picture->id}}" lat="{{$picture->lat}}" lng="{{$picture->lng}}">
+                            <td>{{ $picture->userName }}</td>
+                            <td>{{ $picture->date }}</td>
+                            <td>{{ $picture->item }}</td>
+                            <td>{{ $picture->time }}</td>
+                        </tr>
+                    @empty
+                        @for ($i = 0; $i < 10; $i++)
+                        <tr>
+                            <td style="height: 50px"></td>
+                            <td style="height: 50px"></td>
+                            <td style="height: 50px"></td>
+                            <td style="height: 50px"></td>
+                        </tr>
+                        @endfor
+                    @endforelse -->
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="col-sm-6" id="map" style="height:550px; margin-top: 50px; padding:10px">
+    <div class="col-6" id="map" style="z-index: -1; height:550px; margin-top: 70px; padding:10px;">
     </div>       
     
     <!--Modal: modalRelatedContent-->
@@ -178,9 +180,7 @@
     let map;
     var markerData = <?php echo json_encode($pictures); ?>;
 
-    function initMap() {
-    
-        
+    function initMap() {   
 
         map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 35.829290, lng: -75.823490 },
@@ -211,9 +211,7 @@
             });     
 
             markers.push(marker);          
-            
             marker.addListener('click', function() {
-
                 $('#photoItem').html(markerData[i].item);
                 $('#imgSource').attr('src',  "{{asset('storage/')}}"+ "/" + markerData[i].url);
                 $("#modalRelatedContent").modal("show");

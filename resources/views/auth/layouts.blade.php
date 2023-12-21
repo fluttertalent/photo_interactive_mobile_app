@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NatureSpy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -34,116 +34,116 @@
         }
     </style>
     <style>
-    #video {
-        border: 2px solid black;
-        width: 320px;
-        height: 240px;
-    }
-    #photo {
-        border: 2px solid black;
-        width: 320px;
-        height: 240px;
-    }
-    #canvas {
-        display: none;
-    }
-    .camera {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        width: 340px;
-        display: inline-block;
-    }
-    .output {
-        width: 340px;
-        padding-top: 20px;
-        display: inline-block;
-    }
-    
-    #downloadbutton {
-        display: block;
-        position: relative;
-        margin-left: auto;
-        margin-right: auto;
-        bottom: -10px;
-        padding: 18px;
-        background-color: #4caf50;
-        border: 1px solid rgba(0, 0, 0, 0.7);
-        font-size: 14px;
-        color: rgba(255, 255, 255, 1.0);
+        #video {
+            border: 2px solid black;
+            width: 320px;
+            height: 240px;
+        }
+        #photo {
+            border: 2px solid black;
+            width: 320px;
+            height: 240px;
+        }
+        #canvas {
+            display: none;
+        }
+        .camera {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 340px;
+            display: inline-block;
+        }
+        .output {
+            width: 340px;
+            padding-top: 20px;
+            display: inline-block;
+        }
+        
+        #downloadbutton {
+            display: block;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            bottom: -10px;
+            padding: 18px;
+            background-color: #4caf50;
+            border: 1px solid rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 1.0);
+            cursor: pointer;
+        }
+        .contentarea {
+            font-size: 16px;
+            font-family: Arial;
+            text-align: center;
+        }
+        .custom-map-control-button {
+        background-color: #fff;
+        border: 0;
+        margin-bottom: 10px;
+        padding:10px;
+        font-size: 15px;
         cursor: pointer;
-    }
-    .contentarea {
-        font-size: 16px;
-        font-family: Arial;
-        text-align: center;
-    }
-    .custom-map-control-button {
-       background-color: #fff;
-       border: 0;
-       margin-bottom: 10px;
-       padding:10px;
-       font-size: 15px;
-       cursor: pointer;
-    }
+        }
 
-    #map {
-        position: relative;
-    }
+        #map {
+            position: relative;
+        }
 
-    #pan-button {
-        position: absolute;
-        top: 10px; /* Adjust the top position as needed */
-        left: 20px; /* Adjust the right position as needed */
-        z-index: 1; /* Ensure the button appears above other elements */
-    }
- 
-    img[src$="#custom_marker"]{
-        border: 4px solid #EEE !important;
-        border-radius:50%;
-    }
+        #pan-button {
+            position: absolute;
+            top: 10px; /* Adjust the top position as needed */
+            left: 20px; /* Adjust the right position as needed */
+            z-index: 1; /* Ensure the button appears above other elements */
+        }
+    
+        img[src$="#custom_marker"]{
+            border: 4px solid #EEE !important;
+            border-radius:50%;
+        }
 
-    .slider-menu {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 1;
-        background-color: white;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
-    .review-button {
-        background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px; margin: 10px 5px 5px 5px;
-    }
-  
-    .review-button.active {
-        background-color: #333432;
-    }
-    .login-container {
-      width: 100%; /* Set the width of the container */
-      height: auto; /* Set the height of the container */
-      overflow: hidden; /* Hide any overflowing content */
-    }
-    .login-container img {
-      margin: auto;
-      width: 100%; /* Make the image fill the width of the container */
-      height: auto; /* Maintain the image's aspect ratio */
-      display: block; /* Remove any extra space below the image */
-    }
-    .photo-container {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-    }
+        .slider-menu {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .review-button {
+            background: var(--color-primary);  border: 0; padding: 10px 35px;  color: #fff; transition: 0.4s; border-radius: 4px; margin: 10px 5px 5px 5px;
+        }
+    
+        .review-button.active {
+            background-color: #333432;
+        }
+        .login-container {
+        width: 100%; /* Set the width of the container */
+        height: auto; /* Set the height of the container */
+        overflow: hidden; /* Hide any overflowing content */
+        }
+        .login-container img {
+        margin: auto;
+        width: 100%; /* Make the image fill the width of the container */
+        height: auto; /* Maintain the image's aspect ratio */
+        display: block; /* Remove any extra space below the image */
+        }
+        .photo-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
 
-  .photo-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+        .photo-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
 </style>
-    </style>
 </head>
 <body>
     <header id="header" class="header d-flex align-items-center fixed-top">
@@ -204,19 +204,17 @@
             @endguest                         
     </header><!-- End Header -->
     <section id="contact" class="contact">
-        <div class="container">
+        <div style="margin-left: 10px; margin-right:10px">
             @yield('content')
         </div>
     </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>    
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script
-    async defer
+<script  
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2zf2X2V4s5jEuzb9wzCCdCDdnjW5q8E4&callback=initMap&v=weekly"
-defer
 >
 </script>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
 <script>
 
 </script>
