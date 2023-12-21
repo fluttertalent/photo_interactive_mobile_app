@@ -50,7 +50,8 @@ class LoginRegisterController extends Controller
             'phone' => 'required',
             'title' => 'required',
             'bio' => 'required',
-            'birthday' => 'required'
+            'birthday' => 'required',
+            'hidden'=> 'required'
         ]);
 
        
@@ -66,7 +67,8 @@ class LoginRegisterController extends Controller
             'birthday' => $request->birthday,
             'website' => $request->website,
             'degree' => $request->degree,
-            'role' => 'user'
+            'role' => 'user',
+            'hidden' => $request->hidden
         ]);
 
         $credentials = $request->only('email', 'password');

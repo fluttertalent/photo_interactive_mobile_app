@@ -32,7 +32,7 @@
                             @method('POST')
                             <div class="row"> 
                                 <div class="form-group mb-4 col-md-6">
-                                    <label for="name">Name</label>
+                                    <label for="name">User Name</label>
                                     <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}">
                                     @if ($errors->has('name'))
                                             <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -53,7 +53,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="bio">Bio Descritption</label>
+                                    <label for="bio">Hobbies</label>
                                     <textarea class="form-control" name="bio" rows="5" placeholder="Message" required>{{ old('bio', $user->bio) }}</textarea>    
                                     @if ($errors->has('bio'))
                                             <span class="text-danger">{{ $errors->first('bio') }}</span>
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="col-sm-6">                                             
                                     <div class="form-group">
-                                        <label for="degree" class="col-form-label text-md-end text-start">Degree</label>
+                                        <label for="degree" class="col-form-label text-md-end text-start">Business Name</label>
                                         <input type="text" class="form-control" id="degree" name="degree" value="{{ old('degree', $user->degree) }}">
                                         @if ($errors->has('degree'))
                                             <span class="text-danger">{{ $errors->first('degree') }}</span>
@@ -108,7 +108,23 @@
                                         @endif
                                     </div>
                                 </div>
-                            </div>                   
+                            </div>   
+                            <div class="form-check">
+                                <label class="col-form-label text-md-end text-start">Do you want to hide persnal information in about and contact page?</label><br>
+                                <div style="align-items: center; display:flex">
+                                    <input type="radio" style="width: 20px;" class="form-check-input"  id="hidden1" name="hidden" value="Yes" <?php echo $user->hidden =='Yes' ? 'checked' : ''; ?>>
+                                    &nbsp;&nbsp;
+                                    <label class="form-check-label" for="hidden1">Yes</label>
+                                </div>
+                                <div style="align-items: center; display:flex">
+                                    <input type="radio" style="width: 20px;" class="form-check-input"  id="hidden2" name="hidden" value="No" <?php echo $user->hidden == 'No'? 'checked' : ''; ?>>
+                                    &nbsp;&nbsp;
+                                    <label class="form-check-label" for="hidden2">No</label><br>
+                                </div>
+                                @if ($errors->has('hidden'))
+                                    <span class="text-danger">{{ $errors->first('hidden') }}</span>
+                                @endif
+                            </div>                
                             <button type="submit" class="mt-5 btn btn-primary">Save</button>
                         </form>                    
                     </div>

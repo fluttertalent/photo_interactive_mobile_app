@@ -106,19 +106,19 @@
             <div class="container-fluid">
                 <div class="row gy-4 justify-content-center">
                 @foreach($pictures as $picture)
-                <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="col-xl-3 col-lg-4 col-md-6" style="text-align:center">
                     <div class="gallery-item h-100" style="max-width: 100%; height: auto;">
                         <div class="image-container">
                             <img src="{{asset('storage/')}}/{{$picture->url}}" alt="">
                             <div class="review-info">
                             <span class="review-number"><i class='mdi mdi-star align-middle'></i>{{$picture->review_count}}Reviews</span>
                             <span class="review-mark">{{$picture->average_mark}}</span>                            
-                            </div>
+                        </div>
                         </div>
                         <div class="gallery-links d-flex align-items-center justify-content-center">
                             <a href="{{asset('storage/')}}/{{$picture->url}}" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                            <a type="button" style="color:white; font-size: 25px; position: absolute;  top: 10px;  right: 10px;"  picture="{{$picture->id}}" class="ratePost details-link">Rate</a>
-                        </div>                
+                            <a type="button" style="color:white; font-size: 25px; position:absolute; top:10px; right:10px; margin-top:20px;background:#2cbc85; padding:5px; border-radius:3%  "  picture="{{$picture->id}}" class="ratePost btn-get-started">Rate</a>
+                        </div>
                     </div>
                 </div><!-- End Gallery Item -->
                 @endforeach
@@ -211,9 +211,8 @@
 
             
             $('.ratePost').click(function(){
-                console.log('rrrr');
                 var pic_id = $(this).attr("picture");
-                var picture = markData.find(item => item.id === pic_id);
+                var picture = markData.find(item => item.id == pic_id);
                 $('#photoItem').html(picture.item);
                 $('#imgSource').attr('src',  "{{asset('storage/')}}"+ "/" + picture.url);
                 $("#modalRelatedContent").modal("show");

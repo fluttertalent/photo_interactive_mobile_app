@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="name" class="col-form-label text-md-end text-start">Name</label>                        
+                        <label for="name" class="col-form-label text-md-end text-start">User Name</label>                        
                             <input type="text" class="form-control " id="name" name="name" value="{{ old('name') }}">
                             @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -69,7 +69,7 @@
                         @endif
                     </div>                  
                     <div class="form-group">
-                        <label for="degree" class="col-form-label text-md-end text-start">Degree</label>
+                        <label for="degree" class="col-form-label text-md-end text-start">Business Name</label>
                         <input type="text" class="form-control" id="degree" name="degree" value="{{ old('degree') }}">
                         @if ($errors->has('degree'))
                             <span class="text-danger">{{ $errors->first('degree') }}</span>
@@ -93,12 +93,28 @@
                     </div>                    
                 </div> 
                 <div class="form-group">
-                        <label for="bio" class="col-form-label text-md-end text-start">Bio</label>
+                        <label for="bio" class="col-form-label text-md-end text-start">Hobbies</label>
                         <textarea class="form-control" id="bio" name="bio">{{ old('bio') }}</textarea>
                         @if ($errors->has('bio'))
                             <span class="text-danger">{{ $errors->first('bio') }}</span>
                         @endif
-                </div>  
+                </div>
+                <div style="margin-left:20px" class="form-check">
+                    <label class="col-form-label text-md-end text-start">Do you want to hide persnal information in about and contact page?</label><br>                    
+                    <div style="align-items: center; display:flex">
+                        <input type="radio" style="width: 20px;" class="form-check-input"  id="hidden1" name="hidden" value="Yes" checked>
+                        &nbsp;&nbsp;
+                        <label class="form-check-label" for="hidden1">Yes</label>
+                    </div>
+                    <div style="align-items: center; display:flex">
+                        <input type="radio" style="width: 20px;" class="form-check-input"  id="hidden2" name="hidden" value="No">
+                        &nbsp;&nbsp;
+                        <label class="form-check-label" for="hidden2">No</label><br>
+                    </div>
+                    @if ($errors->has('hidden'))
+                        <span class="text-danger">{{ $errors->first('hidden') }}</span>
+                    @endif
+                </div>     
             </div>                                
             <div class="text-center"><button type="submit">Register</button></div>
             <div class="my-3">

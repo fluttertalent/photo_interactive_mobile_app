@@ -87,9 +87,9 @@
             <img src="{{asset('storage/')}}/{{$user->avatar}}" width="1024" height="1512" class="img-fluid" alt="">
           </div>
           <div class="col-lg-5 content">
-            <h2>{{$user->title}}</h2>
             
-            <div class="row">
+            <h2>{{$user->title}}</h2>
+            <div class="row" style="display: {{ ($user->hidden == 'No') ? 'block' : 'none' }}">
               <div class="col-lg-6">
                 <ul>
                   <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>{{$user->birthday}}</span></li>

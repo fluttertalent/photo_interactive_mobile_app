@@ -30,6 +30,7 @@ class ProfileController extends Controller
             'bio' => 'required',
             'birthday' => 'required',
             'website' => 'required',
+            'hidden' => 'required'
         ]);
 
         
@@ -42,6 +43,7 @@ class ProfileController extends Controller
         $user->phone = $request->input('phone');
         $user->website = $request->input('website');
         $user->degree = $request->input('degree');
+        $user->hidden = $request->input('hidden');
 
         $user->save();
         session()->flash('msg', 'Profile updated successfully!');
