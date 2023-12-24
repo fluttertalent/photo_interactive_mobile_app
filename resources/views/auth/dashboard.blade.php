@@ -341,13 +341,11 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             (position) => {
-
                 const pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
                     zoom: 10,
                 };
-
 
                 toastr.success("The current user's location is "+ pos.lat +"," + pos.lng);
                 map.setCenter(pos);
@@ -384,7 +382,7 @@
                 });
             },
             () => {
-            handleLocationError(true,  map.getCenter());
+                handleLocationError(true,  map.getCenter());
             },
         );
         } else {
@@ -456,8 +454,8 @@
 
             // Update the map options with the new center and zoom level
             map.setOptions({
-            center: pos,
-            zoom: newZoom
+                center: pos,
+                zoom: newZoom
             });
 
         },

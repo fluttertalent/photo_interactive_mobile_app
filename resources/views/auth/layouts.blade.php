@@ -134,6 +134,9 @@
             position: relative;
             display: inline-block;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .photo-button {

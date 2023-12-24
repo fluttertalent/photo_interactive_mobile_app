@@ -20,8 +20,8 @@
                                 </div>
                             </div>
                             <div class="text-center mb-4">
-                                <div class="photo-container">
-                                    <img id="photo" style="width:100%" src="{{asset('assets/img/emptyImg.jpeg')}}" alt="The screen capture will appear in this box.">
+                                <div class="photo-container" style="text-align:center">
+                                    <img id="photo" src="{{asset('assets/img/emptyImg.jpeg')}}" alt="The screen capture will appear in this box.">
                                 <label style="font-size:20px; color:black" for="avatar" class="photo-button"> <i class="bi bi-cloud-upload">&nbsp;&nbsp;</i>Press To Spy Now</label> 
                                 </div>                              
                             </div>
