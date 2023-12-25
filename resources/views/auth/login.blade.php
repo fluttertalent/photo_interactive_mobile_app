@@ -26,7 +26,8 @@
                             <span class="text-danger">{{ $errors->first('password') }}</span>
                         @endif
                 </div>
-              </div>             
+              </div>
+              <span style="color:blue"><a class="" href="{{ route('password.request') }}">Forgot Password?</a></span></p>             
               <div class="text-center"><button type="submit">Log In</button></div>
               <p>Don't have an account? <span style="color:blue"><a class="" href="{{ route('register') }}">Register</a></span></p>
             </form>

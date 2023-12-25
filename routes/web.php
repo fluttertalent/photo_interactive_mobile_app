@@ -10,6 +10,7 @@ use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\PhotoController;
+use App\Http\Controllers\Front\ForgotPasswordController;
 
 
 
@@ -33,6 +34,20 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
 
 });
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])
+    ->middleware('guest')
+    ->name('password.email');
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])
+    ->middleware('guest')
+    ->name('password.update');
+    
 
 Route::get('/about', function(){
     return view('about');
@@ -82,7 +97,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
 Route::post('/register', [ContactController::class, 'suppportContact'])->name('contact.support');
 Route::get('/getReivewPictures/{id}', [ReviewController::class, 'getReviewPictures'])->name('review.pictures');
-
 
 
 
